@@ -19,9 +19,10 @@
     "resolveJsonModule": true,
     "strict": true,
     "strictNullChecks": true,
-    "strictPropertyInitialization": true,
+    "strictPropertyInitialization": false,
     "stripInternal": true,
-    "target": "ES2018"
+    "target": "ES2018",
+    "esModuleInterop": true
   },
   "include": [
     ".projenrc.js",

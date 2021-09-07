@@ -4,7 +4,7 @@ name: release
 on:
   push:
     branches:
-      - main
+      - release
   workflow_dispatch: {}
 jobs:
   release:
@@ -25,9 +25,9 @@ jobs:
           git config user.name "Automation"
           git config user.email "github-actions@github.com"
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
-      - name: release
-        run: npx projen release
+        run: npm ci
+      - name: release:release
+        run: npx projen release:release
       - name: Check for new commits
         id: git_remote
         run: echo ::set-output name=latest_commit::"$(git ls-remote origin -h ${{
@@ -74,7 +74,7 @@ jobs:
       - name: Release
         run: npx -p jsii-release@latest jsii-release-npm
         env:
-          NPM_DIST_TAG: latest
+          NPM_DIST_TAG: test
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     container:

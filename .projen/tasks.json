@@ -159,10 +159,10 @@
           "exec": "npm-check-updates --upgrade --target=minor --reject='projen'"
         },
         {
-          "exec": "yarn install --check-files"
+          "exec": "npm install"
         },
         {
-          "exec": "yarn upgrade @aws-cdk/assert @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak json-schema npm-check-updates standard-version ts-jest typescript constructs"
+          "exec": "npm update @aws-cdk/assert @aws-cdk/aws-apigateway @aws-cdk/aws-appsync @aws-cdk/aws-cloudformation @aws-cdk/aws-cognito @aws-cdk/aws-iam @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/cloudformation-include @aws-cdk/core @types/fs-extra @types/jest @types/lodash.get @types/lodash.set @types/node @types/uuid @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak json-schema npm-check-updates standard-version ts-jest typescript fs-extra lodash.get lodash.set uuid @aws-cdk/aws-apigateway @aws-cdk/aws-appsync @aws-cdk/aws-cloudformation @aws-cdk/aws-cognito @aws-cdk/aws-iam @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/cloudformation-include @aws-cdk/core constructs fs-extra lodash.get lodash.set uuid"
         },
         {
           "exec": "npx projen"
@@ -180,10 +180,10 @@
           "exec": "npm-check-updates --upgrade --target=minor --filter='projen'"
         },
         {
-          "exec": "yarn install --check-files"
+          "exec": "npm install"
         },
         {
-          "exec": "yarn upgrade projen"
+          "exec": "npm update projen"
         },
         {
           "exec": "npx projen"
@@ -238,7 +238,7 @@
       "name": "publish:npm",
       "description": "Publish this package to npm",
       "env": {
-        "NPM_DIST_TAG": "latest",
+        "NPM_DIST_TAG": "test",
         "NPM_REGISTRY": "registry.npmjs.org"
       },
       "requiredEnv": [
@@ -259,9 +259,9 @@
         }
       ]
     },
-    "release": {
-      "name": "release",
-      "description": "Prepare a release from \"main\" branch",
+    "release:release": {
+      "name": "release:release",
+      "description": "Prepare a release from \"release\" branch",
       "env": {
         "RELEASE": "true"
       },
