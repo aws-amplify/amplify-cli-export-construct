@@ -1,9 +1,9 @@
 import { BucketDeployment } from '@aws-cdk/aws-s3-deployment';
 
-export type CategoryStackMapping = {
-  category: string;
-  resourceName: string;
-  service: string;
+export interface CategoryStackMapping {
+  readonly category: string;
+  readonly resourceName: string;
+  readonly service: string;
 };
 
 

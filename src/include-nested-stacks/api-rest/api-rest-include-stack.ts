@@ -7,13 +7,13 @@ export interface IAPIRestIncludedStack {
    * Gets the RestApi of the API stack
    * @returns {CfnRestApi}
    */
-  getRestAPI(): CfnRestApi;
+  restAPI(): CfnRestApi;
 
   /**
      * Gets the Deployment of the Rest API
      * @returns {CfnDeployment}
      */
-  getApiDeployment(): CfnDeployment;
+  apiDeployment(): CfnDeployment;
 }
 
 export class APIRestIncludedStack
@@ -24,11 +24,11 @@ export class APIRestIncludedStack
     super(includedStack);
     this.resourceName = resourceName;
   }
-  getRestAPI(): CfnRestApi {
+  restAPI(): CfnRestApi {
     return this.getResourceConstruct<CfnRestApi>(this.resourceName);
   }
 
-  getApiDeployment(): CfnDeployment {
+  apiDeployment(): CfnDeployment {
     return this.getResourceConstruct<CfnDeployment>(
       `DeploymentAPIGW${this.resourceName}`,
     );

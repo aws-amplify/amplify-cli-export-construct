@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { Bucket, BucketAccessControl, IBucket } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
-import { CfnInclude, CfnIncludeProps } from '@aws-cdk/cloudformation-include';
+import { CfnInclude } from '@aws-cdk/cloudformation-include';
 import { Construct, Stack } from '@aws-cdk/core';
 import * as fs from 'fs-extra';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -40,15 +40,18 @@ export class AmplifyExportAssetHandler extends Construct {
   private deploymentBucket: IBucket;
   private exportManifest: ExportManifest;
   private categoryStackMapping: CategoryStackMapping[];
+  private categoryStackWithDeployment: CategoryStackMappingWithDeployment[];
   private exportPath: string;
   private rootStack: Stack;
   private env?: string;
-  auxiliaryDeployment: BucketDeployment;
+
+  private auxiliaryDeployment: BucketDeployment | undefined;
 
   constructor(scope: Stack, id: string, props: AmplifyExportAssetHandlerProps) {
     super(scope, id);
     this.exportManifest = props.exportManifest;
     this.categoryStackMapping = props.categoryStackMapping;
+    this.categoryStackWithDeployment = props.categoryStackMapping;
     this.exportPath = props.backendPath;
     this.rootStack = scope;
 
@@ -72,7 +75,7 @@ export class AmplifyExportAssetHandler extends Construct {
     );
   }
 
-  protected createAssetsAndUpdateParameters(): CategoryStackMappingWithDeployment[] {
+  createAssetsAndUpdateParameters(): ExportManifest {
     const categoryWithDeployment = this.categoryStackMapping.map(
       (categoryStack) => {
         let deployment: BucketDeployment | undefined = undefined;
@@ -122,14 +125,14 @@ export class AmplifyExportAssetHandler extends Construct {
     );
 
     this.auxiliaryDeployment = this.createAuxiliaryFileAsset();
-    return categoryWithDeployment;
+    this.categoryStackWithDeployment = categoryWithDeployment;
+    return this.exportManifest;
   }
 
-  protected setDependencies(
+  setDependencies(
     include: CfnInclude,
-    categoryStackMappingDeployments: CategoryStackMappingWithDeployment[],
   ) {
-    categoryStackMappingDeployments.forEach((stackMapping) => {
+    this.categoryStackWithDeployment.forEach((stackMapping) => {
       if (stackMapping.bucketDeployment) {
         const stack = include.getResource(
           stackMapping.category + stackMapping.resourceName,
@@ -147,7 +150,7 @@ export class AmplifyExportAssetHandler extends Construct {
 
   }
 
-  createAuxiliaryFileAsset(): BucketDeployment | undefined {
+  private createAuxiliaryFileAsset(): BucketDeployment | undefined {
     const auxiliaryFilePath = path.join(
       this.exportPath,
       AMPLIFY_AUXILIARY_LAMBDAS,

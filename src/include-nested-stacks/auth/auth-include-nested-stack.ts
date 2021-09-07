@@ -4,9 +4,9 @@ import { BaseIncludedStack } from '../base-included-stack';
 
 
 export interface ProviderCredential {
-  ProviderName: 'Facebook' | 'Google' | 'LoginWithAmazon';
-  client_id: string;
-  client_secret: string;
+  readonly providerName: 'Facebook' | 'Google' | 'LoginWithAmazon';
+  readonly clientId: string;
+  readonly clientSecret: string;
 }
 
 export interface IAuthIncludeNestedStack {
@@ -14,39 +14,44 @@ export interface IAuthIncludeNestedStack {
    * @returns Cognito UserPool {CfnUserPool} of the auth stack
    * @throws {}
    */
-  getUserPool(): CfnUserPool;
+  userPool(): CfnUserPool;
 
   /**
    * @returns {CfnIdentityPool} of the auth stack
    */
-  getIdentityPool(): CfnIdentityPool;
+  identityPool(): CfnIdentityPool;
 
   /**
+   * used to provide the hosted UI for federated auth
    * @param credentials
    */
-  setHostedUiProviderCredentials(credentials: ProviderCredential[]): void;
+  hostedUiProviderCredentials(credentials: ProviderCredential[]): void;
 }
 
 export class AuthIncludedNestedStack extends BaseIncludedStack implements IAuthIncludeNestedStack {
 
-  setHostedUiProviderCredentials(credentials: ProviderCredential[]): void {
+  hostedUiProviderCredentials(credentials: ProviderCredential[]): void {
     const hostedUICustomResourceInputs = this.getResourceConstruct<CfnCustomResource>(
       'HostedUICustomResourceInputs',
     );
     hostedUICustomResourceInputs.addPropertyOverride(
       'HostedUIProvidersCustomResourceInputs.hostedUIProviderCreds',
-      JSON.stringify(credentials),
+      JSON.stringify(credentials.map(credential => ({
+        ProviderName: credential.providerName,
+        client_id: credential.clientId,
+        client__secret: credential.clientSecret,
+      }))),
     );
   }
 
-  getUserPool(): CfnUserPool {
+  userPool(): CfnUserPool {
     return this.getResourceConstruct<CfnUserPool>(
       'UserPool',
     );
   }
 
 
-  getIdentityPool(): CfnIdentityPool {
+  identityPool(): CfnIdentityPool {
     return this.getResourceConstruct<CfnIdentityPool>(
       'IdentityPool',
     );

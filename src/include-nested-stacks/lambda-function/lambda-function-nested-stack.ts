@@ -4,11 +4,11 @@ import { BaseIncludedStack } from '../base-included-stack';
 
 export interface ILambdaFunctionIncludedNestedStack {
 
-  getLambdaFunction(): CfnFunction;
+  lambdaFunction(): CfnFunction;
 }
 
 export class LambdaFunctionIncludedNestedStack extends BaseIncludedStack implements ILambdaFunctionIncludedNestedStack {
-  getLambdaFunction(): CfnFunction {
+  lambdaFunction(): CfnFunction {
     return this.getResourceConstruct<CfnFunction>('LambdaFunction');
   }
 

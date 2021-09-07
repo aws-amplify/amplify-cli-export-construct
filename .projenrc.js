@@ -32,6 +32,7 @@ const project = new AwsCdkConstructLibrary({
   //   module: 'aws-amplify.cli.Export_backend',
   // },
   cdkDependenciesAsDeps: false,
+  docgen: true,
   npmDistTag: 'test',
   cdkDependencies: [
     '@aws-cdk/core',
@@ -46,12 +47,12 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/aws-s3-deployment',
     '@aws-cdk/cloudformation-include',
   ],
-  tsconfig: {
-    compilerOptions: {
-      esModuleInterop: true,
-      strictPropertyInitialization: false,
-    },
-  },
+  // tsconfig: {
+  //   compilerOptions: {
+  //     esModuleInterop: true,
+  //     strictPropertyInitialization: false,
+  //   },
+  // },
   // cdkDependencies: undefined,      /* Which AWS CDK modules (those that start with "@aws-cdk/") does this library require when consumed? */
   // cdkTestDependencies: undefined,  /* AWS CDK modules required for testing. */
   // deps: [],                        /* Runtime dependencies of this module. */
