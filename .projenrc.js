@@ -31,6 +31,7 @@ const project = new AwsCdkConstructLibrary({
   //   distName: 'aws-amplify.cli.Export-backend',
   //   module: 'aws-amplify.cli.Export_backend',
   // },
+  jest: true,
   cdkDependenciesAsDeps: true,
   minNodeVersion: '14.17.6',
   docgen: true,

@@ -3,7 +3,6 @@ import {
   IncludedNestedStack,
 } from '@aws-cdk/cloudformation-include';
 import * as cdk from '@aws-cdk/core';
-import { Annotations } from '@aws-cdk/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as _ from 'lodash';
 import { AmplifyExportedBackendProps } from './amplify-exported-backend-props';
@@ -126,7 +125,6 @@ export class AmplifyExportedBackend
 
     this.applyTags(this.rootStack, props.stage);
 
-    Annotations.of(this.rootStack).addWarning('This library is not for production use!');
   }
 
   private applyTags(rootStack: cdk.Stack, env: string = 'dev') {
@@ -159,7 +157,7 @@ export class AmplifyExportedBackend
       FUNCTION_CATEGORY.NAME,
       FUNCTION_CATEGORY.SERVICE.LAMBDA_FUNCTION,
     )
-      .map(this.getCategoryNestedStack)
+      .map((category) => this.getCategoryNestedStack(category))
       .map((stack) => new LambdaFunctionIncludedNestedStack(stack));
   }
 
