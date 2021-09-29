@@ -59,6 +59,15 @@ const project = new AwsCdkConstructLibrary({
     'integ-test/amplify-headless-interface',
   ],
   license: 'Apache-2.0',
+  jestOptions: {
+    jestConfig: {
+      testPathIgnorePatterns: ['integ-test'],
+      coveragePathIgnorePatterns: ['integ-test'],
+    },
+    typescriptConfig: {
+      exclude: ['integ-test'],
+    },
+  },
   // tsconfig: {
   //   compilerOptions: {
   //     esModuleInterop: true,

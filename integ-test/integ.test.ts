@@ -1,4 +1,3 @@
-
 import * as path from 'path';
 import * as cdk from '@aws-cdk/core';
 import * as fs from 'fs-extra';
@@ -11,11 +10,12 @@ describe('test construct', () => {
   let projRoot: string;
   let exportProj: string;
   let exportedBackendConstruct: IAmplifyExportedBackend;
+  const projectName = 'exportTestProject';
+
 
   beforeAll(async () => {
-    const projectName = 'exportTestProject';
     projRoot = path.join(__dirname, 'exportTestProject');
-    exportProj = path.join('..', __dirname);
+    exportProj = path.join(__dirname);
     expect(process.env.AMPLIFY_PATH).toBeDefined();
     expect(process.env.ACCESS_KEY_ID).toBeDefined();
     expect(process.env.SECRET_ACCESS_KEY).toBeDefined();
@@ -30,17 +30,18 @@ describe('test construct', () => {
     await addAuthWithDefault(projRoot, {});
     fs.ensureDirSync(exportProj);
     await exportBackend(projRoot, { exportPath: exportProj });
+    fs.moveSync(path.join('integ-test', `amplify-export-${projectName}`), path.join(`amplify-export-${projectName}`));
     const app = new cdk.App();
     exportedBackendConstruct = new AmplifyExportedBackend(app, 'amplify-exported-backend', {
-      path: path.join(exportProj, `amplify-export-${projectName}`),
+      path: `amplify-export-${projectName}`,
       stage: 'dev',
     });
   });
 
   afterAll(async () => {
-    await deleteProject(projRoot);
-    deleteProjectDir(projRoot);
-    //deleteProjectDir(exportProj);
+    await deleteProject(projRoot, { });
+    //deleteProjectDir(projRoot);
+    deleteProjectDir(`amplify-export-${projectName}`);
   });
 
   test('exportedBackendConstruct is defined', () => {
