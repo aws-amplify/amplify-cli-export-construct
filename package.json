@@ -23,6 +23,9 @@
     "eslint": "npx projen eslint",
     "compat": "npx projen compat",
     "publish:npm": "npx projen publish:npm",
+    "publish:maven": "npx projen publish:maven",
+    "publish:pypi": "npx projen publish:pypi",
+    "publish:nuget": "npx projen publish:nuget",
     "docgen": "npx projen docgen",
     "release:release": "npx projen release:release",
     "projen": "npx projen"
@@ -34,22 +37,11 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.120.0",
-    "@aws-cdk/aws-apigateway": "^1.120.0",
-    "@aws-cdk/aws-appsync": "^1.120.0",
-    "@aws-cdk/aws-cloudformation": "^1.120.0",
-    "@aws-cdk/aws-cognito": "^1.120.0",
-    "@aws-cdk/aws-iam": "^1.120.0",
-    "@aws-cdk/aws-lambda": "^1.120.0",
-    "@aws-cdk/aws-s3": "^1.120.0",
-    "@aws-cdk/aws-s3-assets": "^1.120.0",
-    "@aws-cdk/aws-s3-deployment": "^1.120.0",
-    "@aws-cdk/cloudformation-include": "^1.120.0",
-    "@aws-cdk/core": "^1.120.0",
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^27.0.1",
     "@types/lodash.get": "^4.4.6",
     "@types/lodash.set": "^4.3.6",
-    "@types/node": "^10.17.0",
+    "@types/node": "^14.17.6",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
@@ -85,6 +77,17 @@
     "constructs": "^3.2.27"
   },
   "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.120.0",
+    "@aws-cdk/aws-appsync": "^1.120.0",
+    "@aws-cdk/aws-cloudformation": "^1.120.0",
+    "@aws-cdk/aws-cognito": "^1.120.0",
+    "@aws-cdk/aws-iam": "^1.120.0",
+    "@aws-cdk/aws-lambda": "^1.120.0",
+    "@aws-cdk/aws-s3": "^1.120.0",
+    "@aws-cdk/aws-s3-assets": "^1.120.0",
+    "@aws-cdk/aws-s3-deployment": "^1.120.0",
+    "@aws-cdk/cloudformation-include": "^1.120.0",
+    "@aws-cdk/core": "^1.120.0",
     "fs-extra": "10.0.0",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
@@ -99,6 +102,9 @@
   "keywords": [
     "cdk"
   ],
+  "engines": {
+    "node": ">= 14.17.6"
+  },
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -148,7 +154,23 @@
   "stability": "stable",
   "jsii": {
     "outdir": "dist",
-    "targets": {},
+    "targets": {
+      "java": {
+        "package": "software.amazon.awsamplify.cli.Exportbackend",
+        "maven": {
+          "groupId": "Exportbackend",
+          "artifactId": "software.amazon.awsamplify.cli"
+        }
+      },
+      "python": {
+        "distName": "aws-amplify.cli.Export-backend",
+        "module": "aws-amplify.cli.Export_backend"
+      },
+      "dotnet": {
+        "namespace": "Amazon.Amplify.CLI.ExportBackend",
+        "packageId": "Amazon.Amplify.CLI.ExportBackend"
+      }
+    },
     "tsc": {
       "outDir": "lib",
       "rootDir": "src"

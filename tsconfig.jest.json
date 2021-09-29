@@ -26,7 +26,8 @@
   "include": [
     ".projenrc.js",
     "src/**/*.ts",
-    "test/**/*.ts"
+    "test/**/*.ts",
+    "integ-test/integ.test.ts"
   ],
   "exclude": [
     "node_modules"

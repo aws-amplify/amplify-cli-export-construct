@@ -29,6 +29,8 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
+integ-test/amplify-e2e-core
+integ-test/amplify-headless-interface
 !/.projenrc.js
 /test-reports/
 junit.xml

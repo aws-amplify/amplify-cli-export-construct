@@ -18,24 +18,29 @@ const project = new AwsCdkConstructLibrary({
   ],
   repositoryUrl: 'https://github.com/ammkara/amplify-cli-export-construct.git',
   packageManager: NodePackageManager.NPM,
-  // publishToMaven: {
-  //   javaPackage: 'software.amazon.awsamplify.cli.Exportbackend',
-  //   mavenArtifactId: 'software.amazon.awsamplify.cli',
-  //   mavenGroupId: 'Exportbackend',
-  // },
-  // publishToNuget: {
-  //   dotNetNamespace: 'Amazon.Amplify.CLI.ExportBackend',
-  //   packageId: 'Amazon.Amplify.CLI.ExportBackend',
-  // },
-  // publishToPypi: {
-  //   distName: 'aws-amplify.cli.Export-backend',
-  //   module: 'aws-amplify.cli.Export_backend',
-  // },
+  publishToMaven: {
+    javaPackage: 'software.amazon.awsamplify.cli.Exportbackend',
+    mavenArtifactId: 'software.amazon.awsamplify.cli',
+    mavenGroupId: 'Exportbackend',
+  },
+  publishToNuget: {
+    dotNetNamespace: 'Amazon.Amplify.CLI.ExportBackend',
+    packageId: 'Amazon.Amplify.CLI.ExportBackend',
+  },
+  publishToPypi: {
+    distName: 'aws-amplify.cli.Export-backend',
+    module: 'aws-amplify.cli.Export_backend',
+  },
   jest: true,
   cdkDependenciesAsDeps: true,
   minNodeVersion: '14.17.6',
   docgen: true,
   npmDistTag: 'test',
+  tsconfig: {
+    include: [
+      'integ-test/integ.test.ts',
+    ],
+  },
   cdkDependencies: [
     '@aws-cdk/core',
     '@aws-cdk/aws-apigateway',
@@ -49,6 +54,11 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/aws-s3-deployment',
     '@aws-cdk/cloudformation-include',
   ],
+  gitignore: [
+    'integ-test/amplify-e2e-core',
+    'integ-test/amplify-headless-interface',
+  ],
+  license: 'Apache-2.0',
   // tsconfig: {
   //   compilerOptions: {
   //     esModuleInterop: true,

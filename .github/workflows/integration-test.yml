@@ -1,0 +1,35 @@
+
+name: Run Integration Tests
+on:
+  push:
+    branches:
+      - master
+      - dev
+  pull_request:
+    branches:
+      - master
+      - dev
+jobs:
+  integ-test:
+   runs-on: ubuntu-latest
+   permissions:
+     checks: write
+     contents: write
+     actions: write
+  steps:
+    - name: Checkout
+      uses: action/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
+        path: amplify-cli-export-construct
+    - name: Setup Node.js
+      uses: actions/setup-node@v2.2.0
+        with:
+          node-version: 14.17.6
+    - name: Install Amplify CLI
+      run: npm i -g @aws-amplify/cli@export-backend
+    - name: Checkout
+        run: 
+  
+     
