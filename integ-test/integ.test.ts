@@ -40,8 +40,6 @@ describe('test construct', () => {
 
   afterAll(async () => {
     await deleteProject(projRoot, { });
-    //deleteProjectDir(projRoot);
-    deleteProjectDir(`amplify-export-${projectName}`);
   });
 
   test('exportedBackendConstruct is defined', () => {

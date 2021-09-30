@@ -43,6 +43,7 @@ jobs:
        run: |
            cp -r amplify-cli/packages/amplify-headless-interface amplify-cli-export-construct/integ-test/amplify-headless-interface
            cp -r amplify-cli/packages/amplify-e2e-core amplify-cli-export-construct/integ-test/amplify-headless-interface
+           ls -l amplify-cli-export-construct/integ-test/
         
           
         
