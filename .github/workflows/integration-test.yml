@@ -13,7 +13,7 @@ jobs:
      actions: write
   steps:
     - name: Checkout
-      uses: action/checkout@v2
+      uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.head.ref }}
         repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -25,7 +25,7 @@ jobs:
     - name: Install Amplify CLI
       run: npm i -g @aws-amplify/cli@export-backend
     - name: Checkout
-      uses: action/checkout@v2
+      uses: actions/checkout@v2
       with:
         repository: ammarkarachi/amplify-cli
         ref: refactor/packaging
