@@ -20,8 +20,8 @@ jobs:
         path: amplify-cli-export-construct
     - name: Setup Node.js
       uses: actions/setup-node@v2.2.0
-        with:
-          node-version: 14.17.6
+      with:
+        node-version: 14.17.6
     - name: Install Amplify CLI
       run: npm i -g @aws-amplify/cli@export-backend
     - name: Checkout
@@ -43,6 +43,7 @@ jobs:
       run: |
           cp amplify-cli/packages/amplify-headless-interface amplify-cli-export-construct/integ-test/amplify-headless-interface
           cp amplify-cli/packages/amplify-e2e-core amplify-cli-export-construct/integ-test/amplify-headless-interface
+        
           
         
   
