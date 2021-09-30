@@ -11,38 +11,38 @@ jobs:
      checks: write
      contents: write
      actions: write
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.pull_request.head.ref }}
-        repository: ${{ github.event.pull_request.head.repo.full_name }}
-        path: amplify-cli-export-construct
-    - name: Setup Node.js
-      uses: actions/setup-node@v2.2.0
-      with:
-        node-version: 14.17.6
-    - name: Install Amplify CLI
-      run: npm i -g @aws-amplify/cli@export-backend
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        repository: ammarkarachi/amplify-cli
-        ref: refactor/packaging
-        path: amplify-cli
-    - name: Build Amplify E2E Core
-      run: |
-          cd amplify-cli/packages/amplify-headless-interface
-          yarn install
-          yarn build
-          cd ../amplify-e2e-core
-          yarn install
-          yarn build
-          cd ~/
-    - name: Copy E2E Core
-      run: |
-          cp amplify-cli/packages/amplify-headless-interface amplify-cli-export-construct/integ-test/amplify-headless-interface
-          cp amplify-cli/packages/amplify-e2e-core amplify-cli-export-construct/integ-test/amplify-headless-interface
+   steps:
+     - name: Checkout
+       uses: actions/checkout@v2
+       with:
+         ref: ${{ github.event.pull_request.head.ref }}
+         repository: ${{ github.event.pull_request.head.repo.full_name }}
+         path: amplify-cli-export-construct
+     - name: Setup Node.js
+       uses: actions/setup-node@v2.2.0
+       with:
+         node-version: 14.17.6
+     - name: Install Amplify CLI
+       run: npm i -g @aws-amplify/cli@export-backend
+     - name: Checkout
+       uses: actions/checkout@v2
+       with:
+         repository: ammarkarachi/amplify-cli
+         ref: refactor/packaging
+         path: amplify-cli
+     - name: Build Amplify E2E Core
+       run: |
+           cd amplify-cli/packages/amplify-headless-interface
+           yarn install
+           yarn build
+           cd ../amplify-e2e-core
+           yarn install
+           yarn build
+           cd ~/
+     - name: Copy E2E Core
+       run: |
+           cp amplify-cli/packages/amplify-headless-interface amplify-cli-export-construct/integ-test/amplify-headless-interface
+           cp amplify-cli/packages/amplify-e2e-core amplify-cli-export-construct/integ-test/amplify-headless-interface
         
           
         
