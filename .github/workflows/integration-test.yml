@@ -45,15 +45,6 @@ jobs:
            cp -r amplify-cli/packages/amplify-e2e-core amplify-cli-export-construct/integ-test/amplify-e2e-core
            ls -l amplify-cli-export-construct/integ-test/
      - name: Run Test
-       env:
-        AMPLIFY_PATH: ${{ which amplify }}
        run: |
-        echo ${AMPLIFY_PATH}
-        
-
-
-        
-          
-        
-  
-     
+        run: echo "AMPLIFY_PATH=$(which amplify)" >> $GITHUB_ENV
+        echo ${{env.AMPLIFY_PATH}}
