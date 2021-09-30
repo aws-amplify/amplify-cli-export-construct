@@ -59,13 +59,12 @@ const project = new AwsCdkConstructLibrary({
   excludeTypescript: ['integ-test/*'],
   jestOptions: {
     jestConfig: {
-      testPathIgnorePatterns: ['integ-test', '/node_modules/'],
-      coveragePathIgnorePatterns: ['integ-test', '/node_modules/'],
-    },
-    typescriptConfig: {
-      exclude: ['integ-test'],
+      testPathIgnorePatterns: ['/node_modules/'],
+      coveragePathIgnorePatterns: ['integ-test/', '/node_modules/'],
+      watchPathIgnorePatterns: ['integ-test/'],
     },
   },
+  testdir: 'test',
   mutableBuild: false,
   cdkAssert: true,
   // tsconfig: {
@@ -82,5 +81,11 @@ const project = new AwsCdkConstructLibrary({
   // packageName: undefined,          /* The "name" in package.json. */
   // release: undefined,              /* Add release management to this project. */
 });
-
+const unitTest = project.tasks.tryFind('test');
+unitTest.reset();
+unitTest.exec('rm -fr lib/');
+unitTest.exec('tsc --noEmit --project tsconfig.jest.json');
+unitTest.exec('jest ./test/*');
+unitTest.exec('eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern src test build-tools .projenrc.js');
 project.synth();
+

@@ -61,13 +61,13 @@
           "exec": "rm -fr lib/"
         },
         {
-          "spawn": "test:compile"
+          "exec": "tsc --noEmit --project tsconfig.jest.json"
         },
         {
-          "exec": "jest --passWithNoTests --all --updateSnapshot --coverageProvider=v8"
+          "exec": "jest ./test/*"
         },
         {
-          "spawn": "eslint"
+          "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern src test build-tools .projenrc.js"
         }
       ]
     },

@@ -113,12 +113,14 @@
   "version": "0.0.0",
   "jest": {
     "testPathIgnorePatterns": [
-      "integ-test",
       "/node_modules/"
     ],
     "coveragePathIgnorePatterns": [
-      "integ-test",
+      "integ-test/",
       "/node_modules/"
+    ],
+    "watchPathIgnorePatterns": [
+      "integ-test/"
     ],
     "testMatch": [
       "**/__tests__/**/*.ts?(x)",
@@ -133,9 +135,6 @@
       "text"
     ],
     "coverageDirectory": "coverage",
-    "watchPathIgnorePatterns": [
-      "/node_modules/"
-    ],
     "reporters": [
       "default",
       [

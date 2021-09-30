@@ -23,7 +23,8 @@ jobs:
        with:
          node-version: 14.17.6
      - name: Install Amplify CLI
-       run: npm i @aws-amplify/cli@5.5.0-amplify-export.1
+       run: npm i -g @aws-amplify/cli@5.5.0-amplify-export.1
+       run: npm i -g 
      - name: Checkout
        uses: actions/checkout@v2
        with:
@@ -45,6 +46,10 @@ jobs:
            cp -r amplify-cli/packages/amplify-e2e-core amplify-cli-export-construct/integ-test/amplify-e2e-core
            ls -l amplify-cli-export-construct/integ-test/
      - name: Run Test
+       env: 
+        ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
        run: |
         echo "AMPLIFY_PATH=$(which amplify)" >> $GITHUB_ENV
-        echo ${{env.AMPLIFY_PATH}}
+        cd amplify-cli-export-construct
+        yarn jest integ-test/test-construct.test.ts
