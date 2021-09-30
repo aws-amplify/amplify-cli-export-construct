@@ -30,6 +30,7 @@ jobs:
           node-version: 14.17.6
       - name: Install dependencies
         run: npm ci
+      - name: integ-test
       - name: release:release
         run: npx projen release:release
       - name: Check for new commits

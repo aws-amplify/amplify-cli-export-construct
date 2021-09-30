@@ -36,11 +36,7 @@ const project = new AwsCdkConstructLibrary({
   minNodeVersion: '14.17.6',
   docgen: true,
   npmDistTag: 'test',
-  tsconfig: {
-    include: [
-      'integ-test/integ.test.ts',
-    ],
-  },
+
   cdkDependencies: [
     '@aws-cdk/core',
     '@aws-cdk/aws-apigateway',
@@ -59,15 +55,18 @@ const project = new AwsCdkConstructLibrary({
     'integ-test/amplify-headless-interface',
   ],
   license: 'Apache-2.0',
+  licensed: true,
+  excludeTypescript: ['integ-test/*'],
   jestOptions: {
     jestConfig: {
-      testPathIgnorePatterns: ['integ-test'],
-      coveragePathIgnorePatterns: ['integ-test'],
+      testPathIgnorePatterns: ['integ-test', '/node_modules/'],
+      coveragePathIgnorePatterns: ['integ-test', '/node_modules/'],
     },
     typescriptConfig: {
       exclude: ['integ-test'],
     },
   },
+  cdkAssert: true,
   // tsconfig: {
   //   compilerOptions: {
   //     esModuleInterop: true,
@@ -82,4 +81,5 @@ const project = new AwsCdkConstructLibrary({
   // packageName: undefined,          /* The "name" in package.json. */
   // release: undefined,              /* Add release management to this project. */
 });
+
 project.synth();
