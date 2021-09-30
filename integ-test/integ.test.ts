@@ -2,7 +2,8 @@ import * as path from 'path';
 import * as cdk from '@aws-cdk/core';
 import * as fs from 'fs-extra';
 import { AmplifyExportedBackend, IAmplifyExportedBackend } from '../src';
-import { initJSProjectWithProfile, addAuthWithDefault, addApiWithoutSchema, addFunction, exportBackend, deleteProject, deleteProjectDir } from './amplify-e2e-core/lib';
+// eslint-disable-next-line import/no-unresolved
+import { initJSProjectWithProfile, addAuthWithDefault, addApiWithoutSchema, addFunction, exportBackend, deleteProject } from './amplify-e2e-core/lib';
 
 jest.setTimeout(500000);
 
