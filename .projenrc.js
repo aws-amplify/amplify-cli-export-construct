@@ -66,6 +66,7 @@ const project = new AwsCdkConstructLibrary({
       exclude: ['integ-test'],
     },
   },
+  mutableBuild: false,
   cdkAssert: true,
   // tsconfig: {
   //   compilerOptions: {
