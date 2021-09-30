@@ -41,8 +41,8 @@ jobs:
            cd ~/
      - name: Copy E2E Core
        run: |
-           cp amplify-cli/packages/amplify-headless-interface amplify-cli-export-construct/integ-test/amplify-headless-interface
-           cp amplify-cli/packages/amplify-e2e-core amplify-cli-export-construct/integ-test/amplify-headless-interface
+           cp -r amplify-cli/packages/amplify-headless-interface amplify-cli-export-construct/integ-test/amplify-headless-interface
+           cp -r amplify-cli/packages/amplify-e2e-core amplify-cli-export-construct/integ-test/amplify-headless-interface
         
           
         
