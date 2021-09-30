@@ -16,13 +16,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
       - name: Set git identity
         run: |-
           git config user.name "Automation"
           git config user.email "github-actions@github.com"
+      - name: Anti-tamper check
+        run: git diff --ignore-space-at-eol --exit-code
       - name: Setup Node.js
         uses: actions/setup-node@v2.2.0
         with:
@@ -51,5 +50,7 @@ jobs:
           }}/actions/runs/${{ github.run_id }}/cancel
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Anti-tamper check
+        run: git diff --ignore-space-at-eol --exit-code
     container:
       image: jsii/superchain
