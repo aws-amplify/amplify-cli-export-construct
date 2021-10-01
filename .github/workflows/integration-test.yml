@@ -47,5 +47,8 @@ jobs:
      - name: Run Test
        run: |
         cd amplify-cli-export-construct
+        npx projen
+        cd integ-test/amplify-e2e-core
         yarn install
+        cd ../../
         ./node_modules/jest/bin/jest.js --verbose
