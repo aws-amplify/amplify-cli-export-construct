@@ -23,7 +23,9 @@ jobs:
        with:
          node-version: 14.17.6
      - name: Install Amplify CLI
-       run: npm i @aws-amplify/cli@5.5.0-amplify-export.1
+       run: |
+        npm i @aws-amplify/cli@5.5.0-amplify-export.1
+        which amplify
      - name: Checkout
        uses: actions/checkout@v2
        with:
