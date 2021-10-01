@@ -50,6 +50,7 @@ jobs:
         SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
        run: |
         which amplify
+        amplify -v
         echo "AMPLIFY_PATH=$(which amplify)" >> $GITHUB_ENV
         cd amplify-cli-export-construct
-        ./node_modules/jest/bin/jest.js integ-test/test-construct.test.ts
+        ./node_modules/jest/bin/jest.js integ-test/test-construct.test.ts --verbose
