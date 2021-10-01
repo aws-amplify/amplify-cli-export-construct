@@ -47,4 +47,5 @@ jobs:
      - name: Run Test
        run: |
         cd amplify-cli-export-construct
-        jest --verbose
+        yarn install
+        ./node_modules/jest/bin/jest.js --verbose
