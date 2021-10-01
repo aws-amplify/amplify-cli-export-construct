@@ -51,4 +51,5 @@ jobs:
         cd integ-test/amplify-e2e-core
         yarn install
         cd ../../
+        amplify -v
         ./node_modules/jest/bin/jest.js --verbose
