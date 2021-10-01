@@ -28,11 +28,14 @@ jobs:
        uses: actions/checkout@v2
        with:
          repository: ammarkarachi/amplify-cli
-         ref: refactor/packaging
+         ref: master
          path: amplify-cli
      - name: Build Amplify E2E Core
        run: |
-           cd amplify-cli/packages/amplify-e2e-core
+           cd amplify-cli/packages/amplify-headless-interface
+           yarn install
+           yarn build
+           cd ../amplify-e2e-core
            yarn install
            yarn build
            cd ~/
