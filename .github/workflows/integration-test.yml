@@ -51,6 +51,7 @@ jobs:
        run: |
         amplify_path=$(which amplify)
         echo "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV
+        echo ${{ env.AMPLIFY_PATH }}
         cd amplify-cli-export-construct
         npm ci
         cd integ-test/amplify-e2e-core
