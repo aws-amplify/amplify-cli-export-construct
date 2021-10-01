@@ -49,6 +49,7 @@ jobs:
            ls -l amplify-cli-export-construct/integ-test/
      - name: Run Test
        run: |
+        echo "AMPLIFY_PATH=$(which amplify)" >> $GITHUB_ENV
         cd amplify-cli-export-construct
         npm ci
         cd integ-test/amplify-e2e-core
@@ -56,3 +57,6 @@ jobs:
         cd ../../
         amplify -v
         ./node_modules/jest/bin/jest.js --verbose
+       env: 
+        ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
