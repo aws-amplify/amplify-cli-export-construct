@@ -27,6 +27,9 @@ jobs:
         npm i @aws-amplify/cli@5.5.0-amplify-export.1
         npm i -g @aws-amplify/cli@5.5.0-amplify-export.1
         which amplify
+        amplify_path=$(which amplify)
+        echo "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV
+        echo ${{ env.AMPLIFY_PATH }}
      - name: Checkout
        uses: actions/checkout@v2
        with:
@@ -49,9 +52,6 @@ jobs:
            ls -l amplify-cli-export-construct/integ-test/
      - name: Run Test
        run: |
-        amplify_path=$(which amplify)
-        echo "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV
-        echo ${{ env.AMPLIFY_PATH }}
         cd amplify-cli-export-construct
         npm ci
         cd integ-test/amplify-e2e-core
