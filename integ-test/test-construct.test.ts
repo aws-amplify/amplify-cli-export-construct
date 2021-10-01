@@ -18,8 +18,8 @@ describe('test construct', () => {
   beforeAll(async () => {
     projRoot = path.join(__dirname, 'exportTestProject');
     exportProj = path.join(__dirname);
-    expect(process.env.AMPLIFY_PATH).toBeDefined();
     expect(process.env.ACCESS_KEY_ID).toBeDefined();
+    expect(process.env.AMPLIFY_PATH).toBeDefined();
     expect(process.env.SECRET_ACCESS_KEY).toBeDefined();
     
     fs.ensureDirSync(projRoot);
