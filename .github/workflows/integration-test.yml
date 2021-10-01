@@ -51,6 +51,5 @@ jobs:
        run: |
         which amplify
         amplify -v
-        echo "AMPLIFY_PATH=$(which amplify)" >> $GITHUB_ENV
         cd amplify-cli-export-construct
-        ./node_modules/jest/bin/jest.js integ-test/test-construct.test.ts --verbose
+        jest integ-test/test-construct.test.ts --verbose
