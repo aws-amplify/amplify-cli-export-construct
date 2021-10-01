@@ -47,7 +47,7 @@ jobs:
      - name: Run Test
        run: |
         cd amplify-cli-export-construct
-        npx projen
+        npm ci
         cd integ-test/amplify-e2e-core
         yarn install
         cd ../../
