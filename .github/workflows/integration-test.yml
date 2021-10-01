@@ -49,6 +49,7 @@ jobs:
         ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
        run: |
+        which amplify
         echo "AMPLIFY_PATH=$(which amplify)" >> $GITHUB_ENV
         cd amplify-cli-export-construct
-        yarn jest integ-test/test-construct.test.ts
+        ./node_modules/jest/bin/jest.js integ-test/test-construct.test.ts
