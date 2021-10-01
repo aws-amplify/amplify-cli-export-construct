@@ -49,7 +49,7 @@ jobs:
            ls -l amplify-cli-export-construct/integ-test/
      - name: Run Test
        run: |
-        echo "AMPLIFY_PATH=$(which amplify)" >> $GITHUB_ENV
+        echo "AMPLIFY_PATH=$(echo $(which amplify))" >> $GITHUB_ENV
         cd amplify-cli-export-construct
         npm ci
         cd integ-test/amplify-e2e-core
