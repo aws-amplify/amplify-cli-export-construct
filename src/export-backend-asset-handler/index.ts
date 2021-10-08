@@ -13,6 +13,10 @@ import {
   CategoryStackMappingWithDeployment,
 } from '../types/category-stack-mapping';
 import { ExportManifest } from '../types/export-manifest';
+
+/**
+ * @internal
+ */
 export interface AmplifyExportAssetHandlerProps {
   exportManifest: ExportManifest;
   categoryStackMapping: CategoryStackMapping[];
@@ -34,7 +38,7 @@ const {
 } = Constants;
 
 /**
- *
+ * @internal
  */
 export class AmplifyExportAssetHandler extends Construct {
   private deploymentBucket: IBucket;

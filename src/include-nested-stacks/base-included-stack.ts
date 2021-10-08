@@ -6,6 +6,9 @@ export class CfnResourceNotFoundError extends Error {
     super(`Resource ${logicalId} of type ${type} not found `);
   }
 }
+/**
+ * @internal
+ */
 export class BaseIncludedStack implements IncludedNestedStack {
   includedTemplate: CfnInclude;
   stack: NestedStack;
