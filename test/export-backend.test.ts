@@ -1,7 +1,7 @@
 import { CfnInclude } from '@aws-cdk/cloudformation-include';
 import { App } from '@aws-cdk/core';
 import * as fs from 'fs-extra';
-import { AmplifyExportedBackend } from '../src';
+import { AmplifyExportBackend } from '../src';
 import { Constants } from '../src/constants';
 import { manifest_test, stack_mapping_test } from './test-constants';
 const {
@@ -58,7 +58,7 @@ JSON.parse = jest.fn().mockImplementation((val) => {
 describe('test export backend', () => {
   test('test export backend', () => {
     const app = new App();
-    const amplifyBackend = new AmplifyExportedBackend(app, 'test-construct', {
+    const amplifyBackend = new AmplifyExportBackend(app, 'test-construct', {
       path: 'dummy-path',
       stage: 'prod',
     });

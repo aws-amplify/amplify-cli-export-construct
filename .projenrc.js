@@ -1,11 +1,11 @@
 const { AwsCdkConstructLibrary, NodePackageManager } = require('projen');
 const dependencies = ['fs-extra@10.0.0', 'lodash.get', 'lodash.set', 'uuid'];
 const project = new AwsCdkConstructLibrary({
-  author: 'AmmarKarachi',
-  authorAddress: 'ammkara@amazon.com',
-  cdkVersion: '1.120.0',
+  author: 'Amazon Web Services',
+  authorAddress: 'amplify-cli@amazon.com',
+  cdkVersion: '1.127.0',
   defaultReleaseBranch: 'release',
-  name: 'export-backend',
+  name: '@aws-amplify/cli/export-backend',
   bundledDeps: dependencies,
   deps: dependencies,
   devDeps: [
@@ -16,7 +16,8 @@ const project = new AwsCdkConstructLibrary({
     '@types/node',
     '@types/uuid',
   ],
-  repositoryUrl: 'https://github.com/ammkara/amplify-cli-export-construct.git',
+  authorOrganization: 'aws',
+  repositoryUrl: 'https://github.com/aws-amplify/amplify-cli-export-construct.git',
   packageManager: NodePackageManager.NPM,
   publishToNuget: {
     dotNetNamespace: 'Amazon.Amplify.CLI.ExportBackend',
@@ -29,8 +30,9 @@ const project = new AwsCdkConstructLibrary({
   jest: true,
   cdkDependenciesAsDeps: true,
   minNodeVersion: '14.17.6',
+  majorVersion: '0',
   docgen: true,
-  npmDistTag: 'test',
+  npmDistTag: 'latest',
   cdkDependencies: [
     '@aws-cdk/core',
     '@aws-cdk/aws-apigateway',
@@ -81,5 +83,9 @@ unitTest.exec('rm -fr lib/');
 unitTest.exec('tsc --noEmit --project tsconfig.jest.json');
 unitTest.exec('jest ./test/*');
 unitTest.exec('eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern src test build-tools .projenrc.js');
+project.release.addBranch('beta', {
+  tagPrefix: 'beta',
+  majorVersion: '0',
+});
 project.synth();
 

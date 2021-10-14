@@ -51,4 +51,6 @@ junit.xml
 tsconfig.json
 !/API.md
 !/.github/workflows/release.yml
+!/.github/workflows/release-beta.yml
 !/.github/workflows/upgrade-release.yml
+!/.github/workflows/upgrade-beta.yml

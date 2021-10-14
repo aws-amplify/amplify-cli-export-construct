@@ -29,7 +29,7 @@ const { API_CATEGORY, AUTH_CATEGORY, FUNCTION_CATEGORY } = Constants;
  * Represents the Amplify Exported Backend Stack
  * @interface
  */
-export interface IAmplifyExportedBackend {
+export interface IAmplifyExportBackend {
   /**
    * Use this to get the auth stack
    * @returns the nested stack of type {IAuthIncludeNestedStack}
@@ -47,7 +47,6 @@ export interface IAmplifyExportedBackend {
 
   /**
    * Use this to get rest api stack from the backend
-   * 
    * @param resourceName
    * @return {IAPIRestIncludedStack} the nested of type Rest API
    * @throws {AmplifyCategoryNotFoundError} if the API Rest stack doesn't exist
@@ -87,9 +86,9 @@ export interface IAmplifyExportedBackend {
  * @example
  * @see <amplify-export-docs-path>
  */
-export class AmplifyExportedBackend
+export class AmplifyExportBackend
   extends BaseAmplifyExportBackend
-  implements IAmplifyExportedBackend {
+  implements IAmplifyExportBackend {
   /**
    * cfnInclude of the Amplify backend
    */
