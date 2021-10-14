@@ -5,7 +5,7 @@ const project = new AwsCdkConstructLibrary({
   authorAddress: 'amplify-cli@amazon.com',
   cdkVersion: '1.127.0',
   defaultReleaseBranch: 'release',
-  name: '@aws-amplify/cli/export-backend',
+  name: 'export-backend',
   bundledDeps: dependencies,
   deps: dependencies,
   devDeps: [
@@ -63,6 +63,7 @@ const project = new AwsCdkConstructLibrary({
   testdir: 'test',
   mutableBuild: false,
   cdkAssert: true,
+  packageName: '@aws-amplify/cli-export-backend',
   // tsconfig: {
   //   compilerOptions: {
   //     esModuleInterop: true,

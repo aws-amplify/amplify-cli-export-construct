@@ -1,5 +1,5 @@
 {
-  "name": "@aws-amplify/cli/export-backend",
+  "name": "@aws-amplify/cli-export-backend",
   "repository": {
     "type": "git",
     "url": "https://github.com/aws-amplify/amplify-cli-export-construct.git"
