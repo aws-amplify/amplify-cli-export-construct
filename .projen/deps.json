@@ -1,0 +1,260 @@
+{
+  "dependencies": [
+    {
+      "name": "@aws-cdk/assert",
+      "version": "^1.127.0",
+      "type": "build"
+    },
+    {
+      "name": "@types/fs-extra",
+      "version": "^8.1.1",
+      "type": "build"
+    },
+    {
+      "name": "@types/jest",
+      "type": "build"
+    },
+    {
+      "name": "@types/lodash.get",
+      "type": "build"
+    },
+    {
+      "name": "@types/lodash.set",
+      "type": "build"
+    },
+    {
+      "name": "@types/node",
+      "version": "^14.17.6",
+      "type": "build"
+    },
+    {
+      "name": "@types/uuid",
+      "type": "build"
+    },
+    {
+      "name": "@typescript-eslint/eslint-plugin",
+      "type": "build"
+    },
+    {
+      "name": "@typescript-eslint/parser",
+      "type": "build"
+    },
+    {
+      "name": "eslint",
+      "type": "build"
+    },
+    {
+      "name": "eslint-import-resolver-node",
+      "type": "build"
+    },
+    {
+      "name": "eslint-import-resolver-typescript",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-import",
+      "type": "build"
+    },
+    {
+      "name": "jest",
+      "type": "build"
+    },
+    {
+      "name": "jest-junit",
+      "version": "^12",
+      "type": "build"
+    },
+    {
+      "name": "jsii",
+      "type": "build"
+    },
+    {
+      "name": "jsii-diff",
+      "type": "build"
+    },
+    {
+      "name": "jsii-docgen",
+      "type": "build"
+    },
+    {
+      "name": "jsii-pacmak",
+      "type": "build"
+    },
+    {
+      "name": "json-schema",
+      "type": "build"
+    },
+    {
+      "name": "npm-check-updates",
+      "version": "^11",
+      "type": "build"
+    },
+    {
+      "name": "projen",
+      "type": "build"
+    },
+    {
+      "name": "standard-version",
+      "version": "^9",
+      "type": "build"
+    },
+    {
+      "name": "ts-jest",
+      "type": "build"
+    },
+    {
+      "name": "typescript",
+      "type": "build"
+    },
+    {
+      "name": "fs-extra",
+      "version": "10.0.0",
+      "type": "bundled"
+    },
+    {
+      "name": "lodash.get",
+      "type": "bundled"
+    },
+    {
+      "name": "lodash.set",
+      "type": "bundled"
+    },
+    {
+      "name": "uuid",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-cdk/aws-apigateway",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-appsync",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-cloudformation",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-cognito",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-iam",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-lambda",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-s3-assets",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-s3-deployment",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-s3",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/cloudformation-include",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/core",
+      "version": "^1.127.0",
+      "type": "peer"
+    },
+    {
+      "name": "constructs",
+      "version": "^3.2.27",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-apigateway",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-appsync",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-cloudformation",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-cognito",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-iam",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-lambda",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-s3-assets",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-s3-deployment",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-s3",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/cloudformation-include",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/core",
+      "version": "^1.127.0",
+      "type": "runtime"
+    },
+    {
+      "name": "fs-extra",
+      "version": "10.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "lodash.get",
+      "type": "runtime"
+    },
+    {
+      "name": "lodash.set",
+      "type": "runtime"
+    },
+    {
+      "name": "uuid",
+      "type": "runtime"
+    }
+  ],
+  "//": "~~ Generated by projen. To modify, edit .projenrc.js and run \"npx projen\"."
+}
