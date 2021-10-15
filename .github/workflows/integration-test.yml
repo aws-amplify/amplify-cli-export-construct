@@ -1,9 +1,10 @@
 
 name: Run Integration Tests
 on:
-  pull_request:
+  push:
     branches:
       - main
+  workflow_dispatch: {}
 jobs:
   integ-test:
    runs-on: ubuntu-latest

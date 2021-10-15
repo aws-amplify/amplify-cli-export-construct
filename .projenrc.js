@@ -16,7 +16,7 @@ const project = new AwsCdkConstructLibrary({
     '@types/node',
     '@types/uuid',
   ],
-  authorOrganization: 'aws',
+  authorOrganization: true,
   repositoryUrl: 'https://github.com/aws-amplify/amplify-cli-export-construct.git',
   packageManager: NodePackageManager.NPM,
   publishToNuget: {
