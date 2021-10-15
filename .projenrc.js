@@ -88,5 +88,65 @@ project.release.addBranch('beta', {
   tagPrefix: 'beta',
   majorVersion: '0',
 });
-project.synth();
 
+project.release.addJobs({
+  integration_tests: {
+    runsOn: 'ubuntu-latest',
+    needs: 'release',
+    permissions: { actions: 'write' },
+    steps: [
+      {
+        name: 'Checkout',
+        uses: 'actions/checkout@v2',
+        with: {
+          ref: '${{ github.event.pull_request.head.repo.full_name }}',
+          repository: '${{ github.event.pull_request.head.repo.full_name }}',
+          path: 'amplify-cli-export-construct',
+        },
+      },
+      {
+        name: 'Setup Node.js',
+        uses: 'actions/setup-node@v2.2.0',
+        with: {
+          'node-version': '14.17.6',
+        },
+      },
+      {
+        name: 'Install Amplify CLI',
+        run: 'npm i @aws-amplify/cli@5.5.0-amplify-export.1\nnpm i -g @aws-amplify/cli@5.5.0-amplify-export.1\nwhich amplify, amplify_path=$(which amplify)\necho "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV\necho ${{ env.AMPLIFY_PATH }}\n',
+      },
+      {
+        name: 'Checkout',
+        uses: 'actions/checkout@v2',
+        with: {
+          repository: 'ammarkarachi/amplify-cli',
+          ref: 'refactor/packaging',
+          path: 'amplify-cli',
+        },
+      },
+      {
+        name: 'Build Amplify E2E Core',
+        run: 'cd amplify-cli/packages/amplify-headless-interface\nyarn install\nyarn build\ncd ../amplify-e2e-core\nyarn install\nyarn build\ncd ~/\n',
+      },
+      {
+        name: 'Copy E2E Core',
+        run: 'cp -r amplify-cli/packages/amplify-headless-interface amplify-cli-export-construct/integ-test/amplify-headless-interface\ncp -r amplify-cli/packages/amplify-e2e-core amplify-cli-export-construct/integ-test/amplify-e2e-core\nls -l amplify-cli-export-construct/integ-test/\n',
+      },
+      {
+        name: 'Run Test',
+        run: 'cd amplify-cli-export-construct\nnpm ci\ncd integ-test/amplify-e2e-core\nyarn install\ncd ../../\namplify -v\n./node_modules/jest/bin/jest.js --verbose --ci --collect-coverage\n',
+        env: {
+          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}',
+          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}',
+          AWS_SESSION_TOKEN: '${{ secrets.AWS_SESSION_TOKEN }}',
+        },
+      },
+    ],
+  },
+});
+
+const publishJobs = project.release.publisher.jobs;
+Object.keys(project.release.publisher.jobs).forEach((r) => {
+  publishJobs[r].needs = ['integration_tests'];
+});
+project.synth();
