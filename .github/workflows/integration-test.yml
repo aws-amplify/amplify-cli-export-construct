@@ -61,5 +61,6 @@ jobs:
         amplify -v
         ./node_modules/jest/bin/jest.js --verbose --ci --collect-coverage
        env: 
-        ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}

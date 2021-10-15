@@ -33,7 +33,7 @@
   "author": {
     "name": "Amazon Web Services",
     "email": "amplify-cli@amazon.com",
-    "organization": "aws"
+    "organization": true
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.127.0",
