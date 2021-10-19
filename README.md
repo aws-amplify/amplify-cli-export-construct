@@ -41,7 +41,7 @@ const amplifyExport = new AmplifyExportBackend(app, 'AmplifyExportedBackend', {
 
 #### Construct Props
 
-The construct props extend [stack props](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.StackProps.html) and can be used to override the root stack properties defined in the props.
+The construct props extend [stack props](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.StackProps.html) and can be used to override the root stack properties.
 
 |Name	|Type	|Description	|Required	|Default	|
 |---	|---	|---	|---	|---	|
