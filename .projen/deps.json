@@ -107,6 +107,10 @@
       "type": "build"
     },
     {
+      "name": "yaml",
+      "type": "build"
+    },
+    {
       "name": "fs-extra",
       "version": "10.0.0",
       "type": "bundled"

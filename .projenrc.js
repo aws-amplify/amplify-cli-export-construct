@@ -1,4 +1,8 @@
+const fs = require('fs-extra');
 const { AwsCdkConstructLibrary, NodePackageManager } = require('projen');
+const { stringify } = require('yaml');
+
+
 const dependencies = ['fs-extra@10.0.0', 'lodash.get', 'lodash.set', 'uuid'];
 const project = new AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
@@ -15,6 +19,7 @@ const project = new AwsCdkConstructLibrary({
     '@types/lodash.set',
     '@types/node',
     '@types/uuid',
+    'yaml',
   ],
   authorOrganization: true,
   repositoryUrl: 'https://github.com/aws-amplify/amplify-cli-export-construct.git',
@@ -89,7 +94,7 @@ project.release.addBranch('beta', {
   majorVersion: '0',
 });
 
-project.release.addJobs({
+const integrationTestJob = {
   integration_tests: {
     runsOn: 'ubuntu-latest',
     needs: 'release',
@@ -99,8 +104,8 @@ project.release.addJobs({
         name: 'Checkout',
         uses: 'actions/checkout@v2',
         with: {
-          ref: '${{ github.event.pull_request.head.repo.full_name }}',
-          repository: '${{ github.event.pull_request.head.repo.full_name }}',
+          ref: 'main',
+          repository: 'ammarkarachi/amplify-cli-export-construct',
           path: 'amplify-cli-export-construct',
         },
       },
@@ -113,7 +118,7 @@ project.release.addJobs({
       },
       {
         name: 'Install Amplify CLI',
-        run: 'npm i @aws-amplify/cli@5.5.0-amplify-export.1\nnpm i -g @aws-amplify/cli@5.5.0-amplify-export.1\nwhich amplify, amplify_path=$(which amplify)\necho "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV\necho ${{ env.AMPLIFY_PATH }}\n',
+        run: 'npm i @aws-amplify/cli@5.5.0-amplify-export.1\nnpm i -g @aws-amplify/cli@5.5.0-amplify-export.1\nwhich amplify\namplify_path=$(which amplify)\necho "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV\necho ${{ env.AMPLIFY_PATH }}\n',
       },
       {
         name: 'Checkout',
@@ -143,7 +148,26 @@ project.release.addJobs({
       },
     ],
   },
-});
+};
+
+project.release.addJobs(integrationTestJob);
+fs.writeFileSync('./.github/workflows/integration-test.yml', stringify({
+  name: 'Integration Tests',
+  on: {
+    workflow_dispatch: {},
+  },
+  jobs: {
+    integTest: {
+      'permissions': {
+        checks: 'write',
+        contents: 'write',
+        actions: 'write',
+      },
+      'runs-on': 'ubuntu-latest',
+      'steps': integrationTestJob.integration_tests.steps,
+    },
+  },
+}));
 
 const publishJobs = project.release.publisher.jobs;
 Object.keys(project.release.publisher.jobs).forEach((r) => {
