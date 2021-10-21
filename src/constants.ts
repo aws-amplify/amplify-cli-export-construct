@@ -67,4 +67,10 @@ export const Constants = {
       COGNITO: 'Cognito',
     },
   },
+  INTERACTIONS_CATEGORY: {
+    NAME: 'interactions',
+    SERVICE: {
+      LEX: 'lex',
+    },
+  },
 };

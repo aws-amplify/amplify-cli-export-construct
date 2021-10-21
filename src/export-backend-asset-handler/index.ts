@@ -35,6 +35,7 @@ const {
   STACK_PARAMETERS,
   PARAMETERS_DEPLOYMENT_BUCKET_NAME,
   PARAMTERS_AUTH_VERIFICATION_BUCKET_NAME,
+  INTERACTIONS_CATEGORY,
 } = Constants;
 
 /**
@@ -119,6 +120,10 @@ export class AmplifyExportAssetHandler extends Construct {
                 break;
             }
             break;
+
+          case INTERACTIONS_CATEGORY.NAME: {
+            deployment = this.uploadInteractionsLexZip(categoryStack.resourceName);
+          }
         }
 
         return {
@@ -172,6 +177,46 @@ export class AmplifyExportAssetHandler extends Construct {
       return deployment;
     }
     return;
+  }
+
+  private uploadInteractionsLexZip(resourceName: string): BucketDeployment {
+    const filePath = path.join(
+      this.exportPath,
+      INTERACTIONS_CATEGORY.NAME,
+      resourceName,
+      AMPLIFY_BUILDS,
+    );
+
+    const buildFile = path.join(
+      filePath,
+      this.validateFilesAndReturnPath(filePath),
+    );
+
+
+    const deployment = new BucketDeployment(
+      this,
+      `${resourceName}-deployment`,
+      {
+        destinationBucket: this.deploymentBucket,
+        sources: [Source.asset(filePath)],
+        destinationKeyPrefix: AMPLIFY_BUILDS,
+        prune: false,
+      },
+    );
+    const stacks = this.exportManifest.props.loadNestedStacks;
+    const logicalId = `${INTERACTIONS_CATEGORY.NAME}${resourceName}`;
+
+    if (stacks) {
+      const parameters = stacks[logicalId].parameters;
+      if (parameters) {
+        parameters[STACK_PARAMETERS.FUNCTION.DEPLOYMENT_BUCKET_NAME] =
+          this.deploymentBucket.bucketName;
+        parameters[
+          STACK_PARAMETERS.FUNCTION.S3_KEY
+        ] = `${AMPLIFY_BUILDS}/${path.basename(buildFile)}`;
+      }
+    }
+    return deployment;
   }
 
   private uploadLambdaZip(resourceName: string): BucketDeployment {

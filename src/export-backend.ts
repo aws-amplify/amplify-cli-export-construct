@@ -117,7 +117,7 @@ export class AmplifyExportBackend
 
     const amplifyExportHandler = new AmplifyExportAssetHandler(
       this.rootStack,
-      'asset-handler',
+      'asset',
       {
         backendPath: props.path,
         categoryStackMapping: this.categoryStackMappings,
