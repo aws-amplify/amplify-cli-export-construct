@@ -19,7 +19,6 @@ describe('test construct', () => {
 
   beforeAll(async () => {
     projRoot = path.join(__dirname, 'exportTestProject');
-    categoryStackMapping = JSON.parse(fs.readFileSync(path.join(`amplify-export-${projectName}`, 'category-stack-mapping.json'), { encoding: 'utf-8' })) as CategoryStackMapping[];
 
     exportProj = path.join(__dirname);
     expect(process.env.AWS_ACCESS_KEY_ID).toBeDefined();
@@ -51,6 +50,8 @@ describe('test construct', () => {
     fs.ensureDirSync(exportProj);
     await exportBackend(projRoot, { exportPath: exportProj });
     fs.moveSync(path.join('integ-test', `amplify-export-${projectName}`), path.join(`amplify-export-${projectName}`));
+    categoryStackMapping = JSON.parse(fs.readFileSync(path.join(`amplify-export-${projectName}`, 'category-stack-mapping.json'), { encoding: 'utf-8' })) as CategoryStackMapping[];
+
     const app = new cdk.App();
     exportedBackendConstruct = new AmplifyExportedBackend(app, 'amplify-exported-backend', {
       path: `amplify-export-${projectName}`,
