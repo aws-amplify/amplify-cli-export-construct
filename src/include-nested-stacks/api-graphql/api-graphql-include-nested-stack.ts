@@ -25,7 +25,6 @@ export class APIGraphQLIncludedNestedStack extends BaseIncludedStack {
    * @returns {CfnApiKey} of the api stack
    * @throws {CfnResourceNotFoundError} if not found
    */
-
   graphQLAPI(): CfnGraphQLApi {
     return this.getResourceConstruct<CfnGraphQLApi>('GraphQLAPI');
   }
