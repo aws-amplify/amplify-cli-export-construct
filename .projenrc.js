@@ -110,7 +110,7 @@ const integrationTestJob = {
         uses: 'actions/checkout@v2',
         with: {
           ref: 'main',
-          repository: 'ammarkarachi/amplify-cli-export-construct',
+          repository: 'aws-amplify/amplify-cli-export-construct',
           path: 'amplify-cli-export-construct',
         },
       },
@@ -129,8 +129,8 @@ const integrationTestJob = {
         name: 'Checkout',
         uses: 'actions/checkout@v2',
         with: {
-          repository: 'ammarkarachi/amplify-cli',
-          ref: 'refactor/packaging',
+          repository: 'aws-amplify/amplify-cli',
+          ref: 'extOverrides2',
           path: 'amplify-cli',
         },
       },

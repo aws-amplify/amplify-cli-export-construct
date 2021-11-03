@@ -9,7 +9,7 @@ export class CfnResourceNotFoundError extends Error {
 /**
  * @internal
  */
-export class BaseIncludedStack implements IncludedNestedStack {
+export class BaseIncludedStack {
   includedTemplate: CfnInclude;
   stack: NestedStack;
   constructor(includedStack: IncludedNestedStack) {
