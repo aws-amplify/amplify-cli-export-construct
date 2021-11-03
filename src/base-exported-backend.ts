@@ -23,7 +23,7 @@ class AmplifyCategoryNotFoundError extends Error {
  * Contains all the utility functions
  * @internal
  */
-export class BaseAmplifyExportBackend extends Construct {
+export class BaseAmplifyExportedBackend extends Construct {
   protected categoryStackMappings: CategoryStackMapping[];
   protected exportPath: string;
   protected exportBackendManifest: ExportManifest;
