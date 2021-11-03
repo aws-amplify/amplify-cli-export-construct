@@ -7,6 +7,7 @@ const dependencies = ['fs-extra@10.0.0', 'lodash.get', 'lodash.set', 'uuid'];
 const project = new AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
   authorAddress: 'amplify-cli@amazon.com',
+  packageName: '@aws-amplify/cdk-exported-backend',
   cdkVersion: '1.127.0',
   defaultReleaseBranch: 'release',
   name: 'export-backend',
@@ -25,12 +26,17 @@ const project = new AwsCdkConstructLibrary({
   repositoryUrl: 'https://github.com/aws-amplify/amplify-cli-export-construct.git',
   packageManager: NodePackageManager.NPM,
   publishToNuget: {
-    dotNetNamespace: 'Amazon.Amplify.CLI.ExportBackend',
-    packageId: 'Amazon.Amplify.CLI.ExportBackend',
+    dotNetNamespace: 'Amazon.Amplify.CDK',
+    packageId: 'Exportedbackend',
   },
   publishToPypi: {
-    distName: 'aws-amplify.cli.Export-backend',
-    module: 'aws-amplify.cli.Export_backend',
+    distName: 'aws-amplify.cdk.Exported-backend',
+    module: 'aws-amplify.cdk.Exported_backend',
+  },
+  publishToMaven: {
+    javaPackage: 'com.amplifyframework.cdk.exportedbackend',
+    mavenGroupId: 'com.amplifyframework',
+    mavenArtifactId: 'exported-backend',
   },
   jest: true,
   cdkDependenciesAsDeps: true,
@@ -68,7 +74,6 @@ const project = new AwsCdkConstructLibrary({
   testdir: 'test',
   mutableBuild: false,
   cdkAssert: true,
-  packageName: '@aws-amplify/cli-export-backend',
   // tsconfig: {
   //   compilerOptions: {
   //     esModuleInterop: true,

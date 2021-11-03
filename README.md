@@ -31,9 +31,9 @@ Add to your CDK app:
 
 
 ```js
-import { AmplifyExportBackend }  from 'cli-export-backend';
+import { AmplifyExportedBackend }  from 'cdk-export-backend';
 ...
-const amplifyExport = new AmplifyExportBackend(app, 'AmplifyExportedBackend', {
+const amplifyExport = new AmplifyExportedBackend(app, 'AmplifyExportedBackend', {
   path: './amplify-export-myAmplifyApp',
   stage: 'dev', 
 });

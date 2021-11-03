@@ -1,5 +1,5 @@
 {
-  "name": "@aws-amplify/cli-export-backend",
+  "name": "@aws-amplify/cdk-exported-backend",
   "repository": {
     "type": "git",
     "url": "https://github.com/aws-amplify/amplify-cli-export-construct.git"
@@ -21,6 +21,7 @@
     "eslint": "npx projen eslint",
     "compat": "npx projen compat",
     "publish:npm": "npx projen publish:npm",
+    "publish:maven": "npx projen publish:maven",
     "publish:pypi": "npx projen publish:pypi",
     "publish:nuget": "npx projen publish:nuget",
     "docgen": "npx projen docgen",
@@ -154,13 +155,20 @@
   "jsii": {
     "outdir": "dist",
     "targets": {
+      "java": {
+        "package": "com.amplifyframework.cdk.exportedbackend",
+        "maven": {
+          "groupId": "com.amplifyframework",
+          "artifactId": "exported-backend"
+        }
+      },
       "python": {
-        "distName": "aws-amplify.cli.Export-backend",
-        "module": "aws-amplify.cli.Export_backend"
+        "distName": "aws-amplify.cdk.Exported-backend",
+        "module": "aws-amplify.cdk.Exported_backend"
       },
       "dotnet": {
-        "namespace": "Amazon.Amplify.CLI.ExportBackend",
-        "packageId": "Amazon.Amplify.CLI.ExportBackend"
+        "namespace": "Amazon.Amplify.CDK",
+        "packageId": "Exportedbackend"
       }
     },
     "tsc": {
