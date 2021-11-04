@@ -6,7 +6,7 @@ import { expect as cdkExpect, countResources, haveResource, } from '@aws-cdk/ass
 import { ResourceTypeConstants } from './resource-type-string-generator';
 
 // eslint-disable-next-line import/no-unresolved
-import { exportBackend, deleteProject, deleteProjectDir, initProjectWithAccessKey, addAuthWithMaxOptions, addConvert, addDEVHosting, addInterpret, addRestApi, addS3StorageWithIdpAuth, addSMSNotification, addSampleInteraction, addFunction } from './amplify-e2e-core/lib';
+import { exportBackend, deleteProject, deleteProjectDir, initProjectWithAccessKey, addAuthWithMaxOptions, addDEVHosting, addRestApi, addFunction, addApiWithoutSchema } from './amplify-e2e-core/lib';
 
 jest.setTimeout(500000);
 
@@ -32,21 +32,22 @@ describe('test construct', () => {
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
       region: 'us-east-2',
     });
-    await addAuthWithMaxOptions(projRoot, {});
-    await addSampleInteraction(projRoot, {});
-    await addFunction(projRoot, { functionTemplate: 'Hello World' }, 'nodejs');
-    //await addApiWithoutSchema(projRoot);
 
-    await addSMSNotification(projRoot, { resourceName: 'export-test' });
+    await addApiWithoutSchema(projRoot, { testingWithLatestCodebase: false });
+    await addAuthWithMaxOptions(projRoot, {});
+    //await addSampleInteraction(projRoot, {});
+    await addFunction(projRoot, { functionTemplate: 'Hello World' }, 'nodejs');
+
+    //await addSMSNotification(projRoot, { resourceName: 'export-test' });
     await addRestApi(projRoot, {
       existingLambda: false,
       isCrud: false,
       isFirstRestApi: false,
     });
     await addDEVHosting(projRoot);
-    await addS3StorageWithIdpAuth(projRoot);
-    await addConvert(projRoot, {});
-    await addInterpret(projRoot, {});
+    //await addS3StorageWithIdpAuth(projRoot);
+    //await addConvert(projRoot, {});
+    //await addInterpret(projRoot, {});
     fs.ensureDirSync(exportProj);
     await exportBackend(projRoot, { exportPath: exportProj });
     fs.moveSync(path.join('integ-test', `amplify-export-${projectName}`), path.join(`amplify-export-${projectName}`));
@@ -91,6 +92,13 @@ describe('test construct', () => {
       cdkExpect(apiStack.stack).to(haveResource(ResourceTypeConstants.AWS.APIGATEWAY.RESTAPI));
       cdkExpect(apiStack.stack).to(haveResource(ResourceTypeConstants.AWS.APIGATEWAY.DEPLOYMENT));
     })
+  });
+
+  test('test graphql api', () => {
+    const graphqlApiIncludedStack = exportedBackendConstruct.graphqlNestedStacks();
+    cdkExpect(graphqlApiIncludedStack.stack).to(haveResource(ResourceTypeConstants.AWS.APPSYNC.GRAPHQLAPI));
+    cdkExpect(graphqlApiIncludedStack.stack).to(haveResource(ResourceTypeConstants.AWS.APPSYNC.GRAPHQLSCHEMA));
+
   });
 
   test('test lambda function', () => {
