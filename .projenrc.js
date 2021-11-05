@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const { AwsCdkConstructLibrary, NodePackageManager } = require('projen');
+const { AwsCdkConstructLibrary, NodePackageManager, NpmAccess } = require('projen');
 const { stringify } = require('yaml');
 
 
@@ -13,6 +13,7 @@ const project = new AwsCdkConstructLibrary({
   name: 'exported-backend',
   bundledDeps: dependencies,
   deps: dependencies,
+  npmAccess: NpmAccess.PUBLIC,
   devDeps: [
     '@types/fs-extra@^8.1.1',
     '@types/jest',
