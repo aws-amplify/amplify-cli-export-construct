@@ -35,17 +35,18 @@ const project = new AwsCdkConstructLibrary({
     distName: 'aws-amplify.cdk.exported-backend',
     module: 'aws_amplify.cdk.exported_backend',
   },
+  releaseTagPrefix: 'latest',
   publishToMaven: {
     javaPackage: 'com.amplifyframework.cdk.exportedbackend',
     mavenGroupId: 'com.amplifyframework',
     mavenArtifactId: 'exported-backend',
+    mavenEndpoint: '${{ secrets.MAVEN_ENDPOINT }}'
   },
   jest: true,
   cdkDependenciesAsDeps: true,
   minNodeVersion: '14.17.6',
   majorVersion: '0',
   docgen: true,
-  npmDistTag: 'latest',
   cdkDependencies: [
     '@aws-cdk/aws-apigateway',
     '@aws-cdk/aws-appsync',

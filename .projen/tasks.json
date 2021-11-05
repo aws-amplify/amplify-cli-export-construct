@@ -203,6 +203,9 @@
     "publish:maven": {
       "name": "publish:maven",
       "description": "Publish this package to Maven Central",
+      "env": {
+        "MAVEN_ENDPOINT": "${{ secrets.MAVEN_ENDPOINT }}"
+      },
       "requiredEnv": [
         "MAVEN_GPG_PRIVATE_KEY",
         "MAVEN_GPG_PRIVATE_KEY_PASSPHRASE",
@@ -243,7 +246,8 @@
       "description": "Prepare a release from \"release\" branch",
       "env": {
         "RELEASE": "true",
-        "MAJOR": "0"
+        "MAJOR": "0",
+        "RELEASE_TAG_PREFIX": "latest"
       },
       "steps": [
         {
