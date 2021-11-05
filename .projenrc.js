@@ -110,14 +110,14 @@ const integrationTestJob = {
       },
       {
         name: 'Install Amplify CLI',
-        run: 'npm i @aws-amplify/cli@6.4.0-ext11.0\nnpm i -g @aws-amplify/cli@6.4.0-ext11.0\nwhich amplify\namplify_path=$(which amplify)\necho "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV\necho ${{ env.AMPLIFY_PATH }}\n',
+        run: 'npm i @aws-amplify/cli@6.4.0-ext12.0\nnpm i -g @aws-amplify/cli@6.4.0-ext12.0\nwhich amplify\namplify_path=$(which amplify)\necho "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV\necho ${{ env.AMPLIFY_PATH }}\n',
       },
       {
         name: 'Checkout',
         uses: 'actions/checkout@v2',
         with: {
           repository: 'aws-amplify/amplify-cli',
-          ref: 'extOverrides2',
+          ref: 'extOverrides3',
           path: 'amplify-cli',
         },
       },
@@ -171,8 +171,8 @@ fs.writeFileSync('./.github/workflows/integration-test.yml', stringify({
   },
 }));
 
-const publishJobs = project.release.publisher.jobs;
-Object.keys(project.release.publisher.jobs).forEach((r) => {
-  publishJobs[r].needs = ['integration_tests'];
-});
+// const publishJobs = project.release.publisher.jobs;
+// Object.keys(project.release.publisher.jobs).forEach((r) => {
+//   publishJobs[r].needs = ['integration_tests'];
+// });
 project.synth();
