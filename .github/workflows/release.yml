@@ -46,7 +46,7 @@ jobs:
       image: jsii/superchain:1-buster-slim-node14
   release_github:
     name: Publish to GitHub Releases
-    needs: integration_tests
+    needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -69,7 +69,7 @@ jobs:
           GITHUB_REF: ${{ github.ref }}
   release_npm:
     name: Publish to npm
-    needs: integration_tests
+    needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -90,7 +90,7 @@ jobs:
       image: jsii/superchain:1-buster-slim-node14
   release_maven:
     name: Publish to Maven Central
-    needs: integration_tests
+    needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -113,7 +113,7 @@ jobs:
       image: jsii/superchain:1-buster-slim-node14
   release_pypi:
     name: Publish to PyPI
-    needs: integration_tests
+    needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -149,8 +149,8 @@ jobs:
           node-version: 14.17.6
       - name: Install Amplify CLI
         run: |
-          npm i @aws-amplify/cli@6.4.0-ext11.0
-          npm i -g @aws-amplify/cli@6.4.0-ext11.0
+          npm i @aws-amplify/cli@6.4.0-ext12.0
+          npm i -g @aws-amplify/cli@6.4.0-ext12.0
           which amplify
           amplify_path=$(which amplify)
           echo "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV
@@ -159,7 +159,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: aws-amplify/amplify-cli
-          ref: extOverrides2
+          ref: extOverrides3
           path: amplify-cli
       - name: Build Amplify E2E Core
         run: |
