@@ -10,7 +10,7 @@ const project = new AwsCdkConstructLibrary({
   packageName: '@aws-amplify/cdk-exported-backend',
   cdkVersion: '1.127.0',
   defaultReleaseBranch: 'release',
-  name: 'export-backend',
+  name: 'exported-backend',
   bundledDeps: dependencies,
   deps: dependencies,
   devDeps: [
@@ -21,17 +21,18 @@ const project = new AwsCdkConstructLibrary({
     '@types/node',
     '@types/uuid',
     'yaml',
+    '@aws-cdk/core',
   ],
   authorOrganization: true,
   repositoryUrl: 'https://github.com/aws-amplify/amplify-cli-export-construct.git',
   packageManager: NodePackageManager.NPM,
-  publishToNuget: {
-    dotNetNamespace: 'Amazon.Amplify.CDK',
-    packageId: 'Exportedbackend',
-  },
+  // publishToNuget: {
+  //   dotNetNamespace: 'Amazon.Amplify.CDK',
+  //   packageId: 'Exportedbackend',
+  // },
   publishToPypi: {
-    distName: 'aws-amplify.cdk.Exported-backend',
-    module: 'aws-amplify.cdk.Exported_backend',
+    distName: 'aws-amplify.cdk.exported-backend',
+    module: 'aws_amplify.cdk.exported_backend',
   },
   publishToMaven: {
     javaPackage: 'com.amplifyframework.cdk.exportedbackend',
@@ -45,7 +46,6 @@ const project = new AwsCdkConstructLibrary({
   docgen: true,
   npmDistTag: 'latest',
   cdkDependencies: [
-    '@aws-cdk/core',
     '@aws-cdk/aws-apigateway',
     '@aws-cdk/aws-appsync',
     '@aws-cdk/aws-cloudformation',
@@ -61,6 +61,7 @@ const project = new AwsCdkConstructLibrary({
     'integ-test/amplify-e2e-core',
     'integ-test/amplify-headless-interface',
   ],
+  eslint: false,
   license: 'Apache-2.0',
   licensed: true,
   excludeTypescript: ['integ-test/*'],
@@ -74,26 +75,12 @@ const project = new AwsCdkConstructLibrary({
   testdir: 'test',
   mutableBuild: false,
   cdkAssert: true,
-  // tsconfig: {
-  //   compilerOptions: {
-  //     esModuleInterop: true,
-  //     strictPropertyInitialization: false,
-  //   },
-  // },
-  // cdkDependencies: undefined,      /* Which AWS CDK modules (those that start with "@aws-cdk/") does this library require when consumed? */
-  // cdkTestDependencies: undefined,  /* AWS CDK modules required for testing. */
-  // deps: [],                        /* Runtime dependencies of this module. */
-  // description: undefined,          /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],                     /* Build dependencies for this module. */
-  // packageName: undefined,          /* The "name" in package.json. */
-  // release: undefined,              /* Add release management to this project. */
 });
 const unitTest = project.tasks.tryFind('test');
 unitTest.reset();
 unitTest.exec('rm -fr lib/');
 unitTest.exec('tsc --noEmit --project tsconfig.jest.json');
 unitTest.exec('jest ./test/*');
-unitTest.exec('eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern src test build-tools .projenrc.js');
 project.release.addBranch('beta', {
   tagPrefix: 'beta',
   majorVersion: '0',
