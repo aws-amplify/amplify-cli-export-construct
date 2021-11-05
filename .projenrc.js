@@ -172,8 +172,8 @@ fs.writeFileSync('./.github/workflows/integration-test.yml', stringify({
   },
 }));
 
-// const publishJobs = project.release.publisher.jobs;
-// Object.keys(project.release.publisher.jobs).forEach((r) => {
-//   publishJobs[r].needs = ['integration_tests'];
-// });
+const publishJobs = project.release.publisher.jobs;
+Object.keys(project.release.publisher.jobs).forEach((r) => {
+  publishJobs[r].needs = ['integration_tests'];
+});
 project.synth();

@@ -46,7 +46,7 @@ jobs:
       image: jsii/superchain:1-buster-slim-node14
   release_github:
     name: Publish to GitHub Releases
-    needs: release
+    needs: integration_tests
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -69,7 +69,7 @@ jobs:
           GITHUB_REF: ${{ github.ref }}
   release_npm:
     name: Publish to npm
-    needs: release
+    needs: integration_tests
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -90,7 +90,7 @@ jobs:
       image: jsii/superchain:1-buster-slim-node14
   release_maven:
     name: Publish to Maven Central
-    needs: release
+    needs: integration_tests
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -114,7 +114,7 @@ jobs:
       image: jsii/superchain:1-buster-slim-node14
   release_pypi:
     name: Publish to PyPI
-    needs: release
+    needs: integration_tests
     runs-on: ubuntu-latest
     permissions:
       contents: read
