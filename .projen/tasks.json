@@ -246,8 +246,7 @@
       "description": "Prepare a release from \"release\" branch",
       "env": {
         "RELEASE": "true",
-        "MAJOR": "0",
-        "RELEASE_TAG_PREFIX": "latest"
+        "MAJOR": "0"
       },
       "steps": [
         {

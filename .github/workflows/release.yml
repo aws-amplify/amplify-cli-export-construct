@@ -150,8 +150,8 @@ jobs:
           node-version: 14.17.6
       - name: Install Amplify CLI
         run: |
-          npm i @aws-amplify/cli@6.4.0-ext12.0
-          npm i -g @aws-amplify/cli@6.4.0-ext12.0
+          npm i @aws-amplify/cli@ext14
+          npm i -g @aws-amplify/cli@ext14
           which amplify
           amplify_path=$(which amplify)
           echo "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV
