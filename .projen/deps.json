@@ -6,6 +6,10 @@
       "type": "build"
     },
     {
+      "name": "@aws-cdk/core",
+      "type": "build"
+    },
+    {
       "name": "@types/fs-extra",
       "version": "^8.1.1",
       "type": "build"
@@ -32,30 +36,6 @@
       "type": "build"
     },
     {
-      "name": "@typescript-eslint/eslint-plugin",
-      "type": "build"
-    },
-    {
-      "name": "@typescript-eslint/parser",
-      "type": "build"
-    },
-    {
-      "name": "eslint",
-      "type": "build"
-    },
-    {
-      "name": "eslint-import-resolver-node",
-      "type": "build"
-    },
-    {
-      "name": "eslint-import-resolver-typescript",
-      "type": "build"
-    },
-    {
-      "name": "eslint-plugin-import",
-      "type": "build"
-    },
-    {
       "name": "jest",
       "type": "build"
     },
@@ -78,10 +58,6 @@
     },
     {
       "name": "jsii-pacmak",
-      "type": "build"
-    },
-    {
-      "name": "json-schema",
       "type": "build"
     },
     {
@@ -178,11 +154,6 @@
       "type": "peer"
     },
     {
-      "name": "@aws-cdk/core",
-      "version": "^1.127.0",
-      "type": "peer"
-    },
-    {
       "name": "constructs",
       "version": "^3.2.27",
       "type": "peer"
@@ -234,11 +205,6 @@
     },
     {
       "name": "@aws-cdk/cloudformation-include",
-      "version": "^1.127.0",
-      "type": "runtime"
-    },
-    {
-      "name": "@aws-cdk/core",
       "version": "^1.127.0",
       "type": "runtime"
     },

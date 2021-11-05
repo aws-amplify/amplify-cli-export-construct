@@ -45,8 +45,6 @@ junit.xml
 /lib
 /dist/
 !/tsconfig.jest.json
-!/.eslintrc.json
-!/tsconfig.eslint.json
 .jsii
 tsconfig.json
 !/API.md
