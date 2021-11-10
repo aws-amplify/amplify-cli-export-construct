@@ -56,7 +56,7 @@ describe('test construct', () => {
     const app = new cdk.App();
     exportedBackendConstruct = new AmplifyExportedBackend(app, 'amplify-exported-backend', {
       path: `amplify-export-${projectName}`,
-      stage: 'dev',
+      amplifyEnvironment: 'dev',
     });
   });
 

@@ -60,7 +60,7 @@ describe('test export backend', () => {
     const app = new App();
     const amplifyBackend = new AmplifyExportedBackend(app, 'test-construct', {
       path: 'dummy-path',
-      stage: 'prod',
+      amplifyEnvironment: 'prod',
     });
     expect(amplifyBackend).toBeDefined();
     expect(cfnInclude_mock).toBeDefined();
