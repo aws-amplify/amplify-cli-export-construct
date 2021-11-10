@@ -47,7 +47,7 @@ export class AmplifyExportedBackend
     id: string,
     props: AmplifyExportedBackendProps,
   ) {
-    super(scope, id, props.path, props.stage);
+    super(scope, id, props.path, props.amplifyEnvironment);
 
     this.rootStack = new cdk.Stack(scope, 'AmplifyStack', {
       ...props,
@@ -60,7 +60,7 @@ export class AmplifyExportedBackend
       {
         backendPath: props.path,
         categoryStackMapping: this.categoryStackMappings,
-        env: props.stage ? props.stage : 'dev',
+        env: props.amplifyEnvironment ? props.amplifyEnvironment : 'dev',
         exportManifest: this.exportBackendManifest,
       },
     );
@@ -77,7 +77,7 @@ export class AmplifyExportedBackend
 
     amplifyExportHandler.setDependencies(include);
 
-    this.applyTags(this.rootStack, props.stage);
+    this.applyTags(this.rootStack, props.amplifyEnvironment);
 
   }
 
