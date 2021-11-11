@@ -91,7 +91,11 @@ const integrationTestJob = {
   integration_tests: {
     runsOn: 'ubuntu-latest',
     needs: 'release',
-    permissions: { actions: 'write' },
+    permissions: {
+      checks: 'write',
+      contents: 'write',
+      actions: 'write',
+    },
     steps: [
       {
         name: 'Checkout',
