@@ -285,20 +285,20 @@ public readonly path: string;
 
 - *Type:* `string`
 
-The path to the synthesized folder that contains the artifacts for the Amplify CLI backend ex: ./amplify-synth-out/.
+The path to the exported folder that contains the artifacts for the Amplify CLI backend ex: ./amplify-synth-out/.
 
 ---
 
-##### `stage`<sup>Optional</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.stage"></a>
+##### `amplifyEnvironment`<sup>Optional</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.amplifyEnvironment"></a>
 
 ```typescript
-public readonly stage: string;
+public readonly amplifyEnvironment: string;
 ```
 
 - *Type:* `string`
 - *Default:* is 'dev'
 
-The stage that you are going to publish the The amplify backend requires a stage to deploy.
+The Amplify CLI environment deploy to The amplify backend requires a stage to deploy.
 
 ---
 
