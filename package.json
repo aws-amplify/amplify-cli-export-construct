@@ -92,7 +92,11 @@
     "uuid"
   ],
   "keywords": [
-    "cdk"
+    "amplify",
+    "amplify-cli",
+    "amplify-cli-cdk",
+    "cdk",
+    "exported-backend"
   ],
   "engines": {
     "node": ">= 14.17.6"
