@@ -277,19 +277,7 @@ Whether to enable termination protection for this stack.
 
 ---
 
-##### `path`<sup>Required</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.path"></a>
-
-```typescript
-public readonly path: string;
-```
-
-- *Type:* `string`
-
-The path to the exported folder that contains the artifacts for the Amplify CLI backend ex: ./amplify-synth-out/.
-
----
-
-##### `amplifyEnvironment`<sup>Optional</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.amplifyEnvironment"></a>
+##### `amplifyEnvironment`<sup>Required</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.amplifyEnvironment"></a>
 
 ```typescript
 public readonly amplifyEnvironment: string;
@@ -299,6 +287,18 @@ public readonly amplifyEnvironment: string;
 - *Default:* is 'dev'
 
 The Amplify CLI environment deploy to The amplify backend requires a stage to deploy.
+
+---
+
+##### `path`<sup>Required</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* `string`
+
+The path to the exported folder that contains the artifacts for the Amplify CLI backend ex: ./amplify-synth-out/.
 
 ---
 

@@ -6,7 +6,7 @@ export interface AmplifyExportedBackendProps extends StackProps {
    * The amplify backend requires a stage to deploy
    * @default is 'dev'
    */
-  readonly amplifyEnvironment?: string;
+  readonly amplifyEnvironment: string;
 
   /**
    * The path to the exported folder that contains the artifacts for the Amplify CLI backend

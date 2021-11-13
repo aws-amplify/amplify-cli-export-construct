@@ -1,7 +1,10 @@
 import * as path from 'path';
 import { BucketDeployment } from '@aws-cdk/aws-s3-deployment';
-import { Construct } from '@aws-cdk/core';
+import { Construct, } from '@aws-cdk/core';
 import * as fs from 'fs-extra';
+import {
+  CfnIncludeProps,
+} from '@aws-cdk/cloudformation-include';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as _ from 'lodash';
 import { Constants } from './constants';
@@ -40,6 +43,8 @@ export class BaseAmplifyExportedBackend extends Construct {
 
     this.env = stage;
     this.exportPath = path.resolve(exportPath);
+    
+    
     const exportBackendManifest = this.getExportedDataFromFile<ExportManifest>(
       AMPLIFY_EXPORT_MANIFEST_FILE,
     );
@@ -55,6 +60,30 @@ export class BaseAmplifyExportedBackend extends Construct {
     );
 
 
+  }
+  
+  protected transformTemplateFile(cfnIncludeProps: CfnIncludeProps, exportPath: string) : CfnIncludeProps {
+    
+    if(!cfnIncludeProps.loadNestedStacks){
+      return cfnIncludeProps;
+    }
+
+    const newProps: CfnIncludeProps = {
+      ...cfnIncludeProps,
+      templateFile: path.join(exportPath, cfnIncludeProps.templateFile),
+      loadNestedStacks: cfnIncludeProps.loadNestedStacks ? 
+        Object.keys(cfnIncludeProps.loadNestedStacks).reduce((obj: any, key: string) => {
+          if(cfnIncludeProps.loadNestedStacks &&  key in cfnIncludeProps.loadNestedStacks) {
+            obj[key] = this.transformTemplateFile(cfnIncludeProps.loadNestedStacks[key], exportPath);
+          }
+          return obj;
+        }, {}) : 
+        cfnIncludeProps.loadNestedStacks
+    };
+    
+    
+    
+    return newProps;
   }
 
   protected findResourceForNestedStack(
