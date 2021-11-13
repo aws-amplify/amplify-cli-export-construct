@@ -70,7 +70,7 @@ export class AmplifyExportedBackend
     const include = new CfnInclude(
       this.rootStack,
       'AmplifyCfnInclude',
-      this.exportBackendManifest.props,
+      this.transformTemplateFile(this.exportBackendManifest.props, this.exportPath),
     );
 
     this.cfnInclude = include;
