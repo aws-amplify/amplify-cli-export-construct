@@ -62,6 +62,13 @@ const project = new AwsCdkConstructLibrary({
     'integ-test/amplify-e2e-core',
     'integ-test/amplify-headless-interface',
   ],
+  keywords: [
+    'amplify-cli',
+    'amplify-cli-cdk',
+    'amplify',
+    'cdk',
+    'exported-backend',
+  ],
   eslint: false,
   license: 'Apache-2.0',
   licensed: true,
@@ -115,14 +122,14 @@ const integrationTestJob = {
       },
       {
         name: 'Install Amplify CLI',
-        run: 'npm i @aws-amplify/cli@ext14\nnpm i -g @aws-amplify/cli@ext14\nwhich amplify\namplify_path=$(which amplify)\necho "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV\necho ${{ env.AMPLIFY_PATH }}\n',
+        run: 'npm i @aws-amplify/cli@beta\nnpm i -g @aws-amplify/cli@beta\nwhich amplify\namplify_path=$(which amplify)\necho "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV\necho ${{ env.AMPLIFY_PATH }}\n',
       },
       {
         name: 'Checkout',
         uses: 'actions/checkout@v2',
         with: {
           repository: 'aws-amplify/amplify-cli',
-          ref: 'extOverrides3',
+          ref: 'beta',
           path: 'amplify-cli',
         },
       },
