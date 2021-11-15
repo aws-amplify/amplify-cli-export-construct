@@ -1,7 +1,6 @@
 
 ## Amplify CLI cdk-exported-backend
 
-[![build](https://github.com/aws-amplify/amplify-cli-export-construct/actions/workflows/build.yml/badge.svg)](https://github.com/aws-amplify/amplify-cli-export-construct/actions/workflows/build.yml)
 
 [![Integration Tests](https://github.com/aws-amplify/amplify-cli-export-construct/actions/workflows/integration-test.yml/badge.svg?branch=main)](https://github.com/aws-amplify/amplify-cli-export-construct/actions/workflows/integration-test.yml)
 
