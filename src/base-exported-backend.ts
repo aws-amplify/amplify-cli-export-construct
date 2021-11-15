@@ -37,12 +37,12 @@ export class BaseAmplifyExportedBackend extends Construct {
     scope: Construct,
     id: string,
     exportPath: string,
-    stage?: string,
+    amplifyEnvironment: string,
   ) {
     super(scope, id);
 
-    this.env = stage;
-    this.exportPath = path.resolve(exportPath);
+    this.env = amplifyEnvironment;
+    this.exportPath = this.validatePath(exportPath);
     
     
     const exportBackendManifest = this.getExportedDataFromFile<ExportManifest>(
@@ -60,6 +60,20 @@ export class BaseAmplifyExportedBackend extends Construct {
     );
 
 
+  }
+  validatePath(exportPath: string): string {
+    const resolvePath = path.resolve(exportPath);
+    if(!fs.existsSync(resolvePath)) {
+      throw new Error(`Could not find path ${resolvePath}`)
+    }
+
+    const stat = fs.statSync(resolvePath);
+
+    if(!stat.isDirectory()){
+      throw new Error(`The path ${resolvePath} is not a directory`);
+    }
+
+    return resolvePath;
   }
   
   protected transformTemplateFile(cfnIncludeProps: CfnIncludeProps, exportPath: string) : CfnIncludeProps {
@@ -123,7 +137,7 @@ export class BaseAmplifyExportedBackend extends Construct {
   protected getExportedDataFromFile<T>(fileName: string): T {
     const filePath = path.join(this.exportPath, fileName);
     if (!fs.existsSync(filePath)) {
-      throw new Error(`${fileName} file does not exist`);
+      throw new Error(`Cannot find ${fileName} in the directory ${this.exportPath}`);
     }
     return JSON.parse(fs.readFileSync(filePath, { encoding: 'utf-8' })) as T;
   }
