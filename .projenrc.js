@@ -81,7 +81,6 @@ const project = new AwsCdkConstructLibrary({
     },
   },
   testdir: 'test',
-  mutableBuild: false,
   cdkAssert: true,
 });
 const unitTest = project.tasks.tryFind('test');
@@ -182,6 +181,7 @@ fs.writeFileSync('./.github/workflows/integration-test.yml', stringify({
     },
   },
 }));
+
 
 const publishJobs = project.release.publisher.jobs;
 Object.keys(project.release.publisher.jobs).forEach((r) => {
