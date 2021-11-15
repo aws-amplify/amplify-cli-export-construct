@@ -81,7 +81,6 @@ const project = new AwsCdkConstructLibrary({
     },
   },
   testdir: 'test',
-  mutableBuild: false,
   cdkAssert: true,
 });
 const unitTest = project.tasks.tryFind('test');
@@ -182,6 +181,14 @@ fs.writeFileSync('./.github/workflows/integration-test.yml', stringify({
     },
   },
 }));
+project.buildWorkflow.preSynthesize = () => {
+  project.buildWorkflow.events = {
+    'pull_request_target': {}
+  }
+  //delete project.buildWorkflow.events['pull_request']
+  //delete project.buildWorkflow.events['workflow_dispatch']
+  console.log(project.buildWorkflow.events)
+}
 
 const publishJobs = project.release.publisher.jobs;
 Object.keys(project.release.publisher.jobs).forEach((r) => {

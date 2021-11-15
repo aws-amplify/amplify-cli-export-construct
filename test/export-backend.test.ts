@@ -30,6 +30,9 @@ fs_mock.readFileSync.mockImplementation((filePath, _options) => {
 
   return stringFilePath;
 });
+fs_mock.statSync.mockReturnValue({
+  isDirectory: jest.fn().mockReturnValue(true),
+} as unknown as fs.Stats)
 
 jest.mock('../src/export-backend-asset-handler', () => ({
   AmplifyExportAssetHandler: jest.fn().mockReturnValue({
@@ -92,6 +95,6 @@ describe('test export backend', () => {
     } catch (ex) {
       expect(ex).toBeDefined();
     }
-    //expect(mock).toBeDefined();
   });
+
 });
