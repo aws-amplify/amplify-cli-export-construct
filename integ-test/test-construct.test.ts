@@ -35,19 +35,14 @@ describe('test construct', () => {
 
     await addApiWithoutSchema(projRoot, { testingWithLatestCodebase: false });
     await addAuthWithMaxOptions(projRoot, {});
-    //await addSampleInteraction(projRoot, {});
     await addFunction(projRoot, { functionTemplate: 'Hello World' }, 'nodejs');
 
-    //await addSMSNotification(projRoot, { resourceName: 'export-test' });
     await addRestApi(projRoot, {
       existingLambda: false,
       isCrud: false,
       isFirstRestApi: false,
     });
     await addDEVHosting(projRoot);
-    //await addS3StorageWithIdpAuth(projRoot);
-    //await addConvert(projRoot, {});
-    //await addInterpret(projRoot, {});
     fs.ensureDirSync(exportProj);
     await exportBackend(projRoot, { exportPath: exportProj });
     fs.moveSync(path.join('integ-test', `amplify-export-${projectName}`), path.join(`amplify-export-${projectName}`));
