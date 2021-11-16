@@ -124,18 +124,6 @@ Categories defined in Amplify CLI like function, api, auth etc.
 
 ---
 
-##### `validatePath` <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackend.validatePath"></a>
-
-```typescript
-public validatePath(exportPath: string)
-```
-
-###### `exportPath`<sup>Required</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackend.parameter.exportPath"></a>
-
-- *Type:* `string`
-
----
-
 
 #### Properties <a name="Properties"></a>
 
