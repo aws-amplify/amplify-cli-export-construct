@@ -1,15 +1,21 @@
-name: Build Status
+name: Wait for check name
+on:
+  push:
+  workflow_dispatch:
 
-on: 
-  workflow_run:
-    workflows: ['build']
-    types:
-      - completed
 jobs:
-  on-completed:
+  wait-for-check-name:
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.event.workflow_run.conclusion == 'success' }}
-        run: exit 0
-      - if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-        run: exit 1
+      - uses: actions/checkout@v2
+      - name: Wait on tests
+        uses: ./
+        with:
+          ref: ${{ github.sha }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10 # seconds
+          running-workflow-name: wait-for-check-name
+          check-name: build
+
+      - name: Success
+        run: echo 'Success!'
