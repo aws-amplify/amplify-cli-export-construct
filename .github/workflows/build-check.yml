@@ -2,6 +2,6 @@ name: Build Status
 
 on: 
   workflow_run:
-    workflows: ['buid']
+    workflows: ['build']
     types:
       - completed
