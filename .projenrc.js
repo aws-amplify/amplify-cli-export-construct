@@ -81,6 +81,7 @@ const project = new AwsCdkConstructLibrary({
     },
   },
   testdir: 'test',
+  antitamper: false,
   cdkAssert: true,
 });
 const unitTest = project.tasks.tryFind('test');
