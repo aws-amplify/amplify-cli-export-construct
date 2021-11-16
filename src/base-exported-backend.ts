@@ -61,7 +61,7 @@ export class BaseAmplifyExportedBackend extends Construct {
 
 
   }
-  validatePath(exportPath: string): string {
+  private validatePath(exportPath: string): string {
     const resolvePath = path.resolve(exportPath);
     if(!fs.existsSync(resolvePath)) {
       throw new Error(`Could not find path ${resolvePath}`)
