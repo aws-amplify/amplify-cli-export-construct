@@ -49,7 +49,7 @@ export class AmplifyExportedBackend
   ) {
     super(scope, id, props.path, props.amplifyEnvironment);
 
-    this.rootStack = new cdk.Stack(scope, 'AmplifyStack', {
+    this.rootStack = new cdk.Stack(scope, `${id}-amplify-backend-stack`, {
       ...props,
       stackName: this.exportBackendManifest.stackName,
     });
