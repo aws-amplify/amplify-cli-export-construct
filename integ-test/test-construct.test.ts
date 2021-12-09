@@ -6,7 +6,7 @@ import { expect as cdkExpect, countResources, haveResource, } from '@aws-cdk/ass
 import { ResourceTypeConstants } from './resource-type-string-generator';
 
 // eslint-disable-next-line import/no-unresolved
-import { exportBackend, deleteProject, deleteProjectDir, initProjectWithAccessKey, addAuthWithMaxOptions, addDEVHosting, addRestApi, addFunction, addApiWithoutSchema } from './amplify-e2e-core/lib';
+import { exportBackend, deleteProject, deleteProjectDir, initProjectWithAccessKey, addDEVHosting, addRestApi, addFunction, addApiWithoutSchema, addAuthWithMaxOptions } from './amplify-e2e-core/lib';
 
 jest.setTimeout(500000);
 
@@ -34,14 +34,16 @@ describe('test construct', () => {
     });
 
     await addApiWithoutSchema(projRoot, { testingWithLatestCodebase: false });
-    await addAuthWithMaxOptions(projRoot, {});
-    await addFunction(projRoot, { functionTemplate: 'Hello World' }, 'nodejs');
-
     await addRestApi(projRoot, {
       existingLambda: false,
       isCrud: false,
-      isFirstRestApi: false,
+      projectContainsFunctions: false,
+      isFirstRestApi: true,
     });
+    await addAuthWithMaxOptions(projRoot, {});
+    await addFunction(projRoot, { functionTemplate: 'Hello World' }, 'nodejs');
+
+   
     await addDEVHosting(projRoot);
     fs.ensureDirSync(exportProj);
     await exportBackend(projRoot, { exportPath: exportProj });
