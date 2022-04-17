@@ -1,5 +1,5 @@
-import { CfnInclude } from '@aws-cdk/cloudformation-include';
-import { App } from '@aws-cdk/core';
+import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
+import { App } from 'aws-cdk-lib';
 import * as fs from 'fs-extra';
 import { AmplifyExportedBackend } from '../src';
 import { Constants } from '../src/constants';

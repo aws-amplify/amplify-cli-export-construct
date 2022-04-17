@@ -145,7 +145,7 @@
       ],
       "steps": [
         {
-          "exec": "errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \"Release.tag_name already exists\" $errout; then cat $errout; exit $exitcode; fi"
+          "exec": "errout=$(mktemp); gh release create $(cat dist\\releasetag.txt) -R $GITHUB_REPOSITORY -F dist\\changelog.md -t $(cat dist\\releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \"Release.tag_name already exists\" $errout; then cat $errout; exit $exitcode; fi"
         }
       ]
     },
@@ -312,7 +312,7 @@
           "exec": "npm install"
         },
         {
-          "exec": "npm update @aws-cdk/assert @aws-cdk/core @types/fs-extra @types/jest @types/lodash.get @types/lodash.set @types/node @types/uuid jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak npm-check-updates standard-version ts-jest typescript yaml fs-extra lodash.get lodash.set uuid @aws-cdk/aws-apigateway @aws-cdk/aws-appsync @aws-cdk/aws-cloudformation @aws-cdk/aws-cognito @aws-cdk/aws-iam @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/cloudformation-include constructs @aws-cdk/aws-apigateway @aws-cdk/aws-appsync @aws-cdk/aws-cloudformation @aws-cdk/aws-cognito @aws-cdk/aws-iam @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/cloudformation-include fs-extra lodash.get lodash.set uuid"
+          "exec": "npm update @aws-cdk/assert @types/fs-extra @types/jest @types/lodash.get @types/lodash.set @types/node @types/uuid jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak npm-check-updates standard-version ts-jest typescript yaml fs-extra lodash.get lodash.set uuid @aws-cdk/aws-appsync-alpha aws-cdk-lib constructs fs-extra lodash.get lodash.set uuid"
         },
         {
           "exec": "npx projen"

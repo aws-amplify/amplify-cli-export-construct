@@ -1,8 +1,8 @@
 {
-  "name": "@aws-amplify/cdk-exported-backend",
+  "name": "@artyom-melnikov/amplify-cli-export-construct",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aws-amplify/amplify-cli-export-construct.git"
+    "url": "https://github.com/artyom-melnikov/amplify-cli-export-construct.git"
   },
   "scripts": {
     "clobber": "npx projen clobber",
@@ -30,13 +30,13 @@
     "projen": "npx projen"
   },
   "author": {
-    "name": "Amazon Web Services",
+    "name": "Artyom Melnikov (forked from Amazon Web Services)",
     "email": "amplify-cli@amazon.com",
-    "organization": true
+    "organization": false
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.127.0",
-    "@aws-cdk/core": "^1.127.0",
+    "@aws-cdk/assert": "^2.15.0",
+    "aws-cdk-lib": "^2.15.0",
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^27.0.2",
     "@types/lodash.get": "^4.4.6",
@@ -57,29 +57,11 @@
     "yaml": "^1.10.2"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-apigateway": "^1.127.0",
-    "@aws-cdk/aws-appsync": "^1.127.0",
-    "@aws-cdk/aws-cloudformation": "^1.127.0",
-    "@aws-cdk/aws-cognito": "^1.127.0",
-    "@aws-cdk/aws-iam": "^1.127.0",
-    "@aws-cdk/aws-lambda": "^1.127.0",
-    "@aws-cdk/aws-s3": "^1.127.0",
-    "@aws-cdk/aws-s3-assets": "^1.127.0",
-    "@aws-cdk/aws-s3-deployment": "^1.127.0",
-    "@aws-cdk/cloudformation-include": "^1.127.0",
-    "constructs": "^3.2.27"
+    "@aws-cdk/aws-appsync-alpha": "^2.15.0-alpha.0",
+    "aws-cdk-lib": "^2.15.0",
+    "constructs": "^10.0.5"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigateway": "^1.127.0",
-    "@aws-cdk/aws-appsync": "^1.127.0",
-    "@aws-cdk/aws-cloudformation": "^1.127.0",
-    "@aws-cdk/aws-cognito": "^1.127.0",
-    "@aws-cdk/aws-iam": "^1.127.0",
-    "@aws-cdk/aws-lambda": "^1.127.0",
-    "@aws-cdk/aws-s3": "^1.127.0",
-    "@aws-cdk/aws-s3-assets": "^1.127.0",
-    "@aws-cdk/aws-s3-deployment": "^1.127.0",
-    "@aws-cdk/cloudformation-include": "^1.127.0",
     "fs-extra": "10.0.0",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
@@ -106,7 +88,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.0",
+  "version": "1.0.0",
   "jest": {
     "testPathIgnorePatterns": [
       "/node_modules/"

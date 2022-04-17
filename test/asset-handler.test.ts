@@ -1,6 +1,6 @@
-import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
-import { CfnInclude } from '@aws-cdk/cloudformation-include';
-import { App, Stack } from '@aws-cdk/core';
+import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
+import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
+import { App, Stack } from 'aws-cdk-lib';
 import * as fs from 'fs-extra';
 import { AmplifyExportAssetHandler } from '../src/export-backend-asset-handler';
 import { manifest_test, stack_mapping_test } from './test-constants';

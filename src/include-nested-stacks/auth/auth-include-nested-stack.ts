@@ -1,5 +1,5 @@
-import { CfnUserPool, CfnIdentityPool } from '@aws-cdk/aws-cognito';
-import { CfnCustomResource } from '@aws-cdk/core';
+import { CfnUserPool, CfnIdentityPool } from 'aws-cdk-lib/aws-cognito';
+import { CfnCustomResource } from 'aws-cdk-lib/core';
 import { BaseIncludedStack } from '../base-included-stack';
 
 export interface ProviderCredential {

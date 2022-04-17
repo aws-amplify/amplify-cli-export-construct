@@ -1,10 +1,10 @@
 import * as path from 'path';
-import { BucketDeployment } from '@aws-cdk/aws-s3-deployment';
-import { Construct, } from '@aws-cdk/core';
+import { BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
+import { Construct, } from 'constructs';
 import * as fs from 'fs-extra';
 import {
   CfnIncludeProps,
-} from '@aws-cdk/cloudformation-include';
+} from 'aws-cdk-lib/cloudformation-include';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as _ from 'lodash';
 import { Constants } from './constants';

@@ -8,7 +8,7 @@ const project = new AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
   authorAddress: 'amplify-cli@amazon.com',
   packageName: '@aws-amplify/cdk-exported-backend',
-  cdkVersion: '1.127.0',
+  cdkVersion: '2.15.0',
   defaultReleaseBranch: 'release',
   name: 'exported-backend',
   bundledDeps: dependencies,
@@ -22,7 +22,10 @@ const project = new AwsCdkConstructLibrary({
     '@types/node',
     '@types/uuid',
     'yaml',
-    '@aws-cdk/core',
+  ],
+  peerDeps: [
+    '@aws-cdk/aws-appsync-alpha@^2.15.0-alpha.0',
+    'aws-cdk-lib@^10.0.5'
   ],
   authorOrganization: true,
   repositoryUrl: 'https://github.com/aws-amplify/amplify-cli-export-construct.git',
@@ -47,16 +50,6 @@ const project = new AwsCdkConstructLibrary({
   majorVersion: '0',
   docgen: true,
   cdkDependencies: [
-    '@aws-cdk/aws-apigateway',
-    '@aws-cdk/aws-appsync',
-    '@aws-cdk/aws-cloudformation',
-    '@aws-cdk/aws-cognito',
-    '@aws-cdk/aws-iam',
-    '@aws-cdk/aws-lambda',
-    '@aws-cdk/aws-s3',
-    '@aws-cdk/aws-s3-assets',
-    '@aws-cdk/aws-s3-deployment',
-    '@aws-cdk/cloudformation-include',
   ],
   gitignore: [
     'integ-test/amplify-e2e-core',
