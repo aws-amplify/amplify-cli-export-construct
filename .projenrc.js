@@ -1,10 +1,9 @@
 const fs = require('fs-extra');
-const { AwsCdkConstructLibrary, NodePackageManager, NpmAccess } = require('projen');
+const { awscdk , javascript  } = require('projen');
 const { stringify } = require('yaml');
 
-
 const dependencies = ['fs-extra@10.0.0', 'lodash.get', 'lodash.set', 'uuid'];
-const project = new AwsCdkConstructLibrary({
+const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
   authorAddress: 'amplify-cli@amazon.com',
   packageName: '@aws-amplify/cdk-exported-backend',
@@ -13,7 +12,7 @@ const project = new AwsCdkConstructLibrary({
   name: 'exported-backend',
   bundledDeps: dependencies,
   deps: dependencies,
-  npmAccess: NpmAccess.PUBLIC,
+  npmAccess: javascript.NpmAccess.PUBLIC,
   devDeps: [
     '@types/fs-extra@^8.1.1',
     '@types/jest',
@@ -26,7 +25,7 @@ const project = new AwsCdkConstructLibrary({
   ],
   authorOrganization: true,
   repositoryUrl: 'https://github.com/aws-amplify/amplify-cli-export-construct.git',
-  packageManager: NodePackageManager.NPM,
+  packageManager: javascript.NodePackageManager.NPM,
   // publishToNuget: {
   //   dotNetNamespace: 'Amazon.Amplify.CDK',
   //   packageId: 'Exportedbackend',
@@ -184,8 +183,10 @@ fs.writeFileSync('./.github/workflows/integration-test.yml', stringify({
 }));
 
 
-const publishJobs = project.release.publisher.jobs;
-Object.keys(project.release.publisher.jobs).forEach((r) => {
-  publishJobs[r].needs = ['integration_tests'];
-});
-project.synth();
+// const publishJobs = project.deps = ( s) => {
+//   console.log(s);
+// }
+// Object.keys(project.release.publisher.jobs).forEach((r) => {
+//   publishJobs[r].needs = ['integration_tests'];
+// });
+// project.synth();
