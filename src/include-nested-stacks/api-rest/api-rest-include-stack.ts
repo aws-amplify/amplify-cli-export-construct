@@ -1,5 +1,5 @@
-import { CfnDeployment, CfnRestApi } from '@aws-cdk/aws-apigateway';
-import { IncludedNestedStack } from '@aws-cdk/cloudformation-include';
+import { CfnDeployment, CfnRestApi } from 'aws-cdk-lib/aws-apigateway';
+import { IncludedNestedStack } from 'aws-cdk-lib/cloudformation-include';
 import { BaseIncludedStack } from '../base-included-stack';
 
 export class APIRestIncludedStack

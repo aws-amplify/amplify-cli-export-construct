@@ -1,4 +1,4 @@
-import { BucketDeployment } from '@aws-cdk/aws-s3-deployment';
+import { BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
 
 
 export interface CategoryStackMapping {

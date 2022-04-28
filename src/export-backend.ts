@@ -1,8 +1,8 @@
 import {
   CfnInclude,
   IncludedNestedStack,
-} from '@aws-cdk/cloudformation-include';
-import * as cdk from '@aws-cdk/core';
+} from 'aws-cdk-lib/cloudformation-include';
+import * as cdk from 'aws-cdk-lib';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as _ from 'lodash';
 import { AmplifyExportedBackendProps } from './amplify-exported-backend-props';
@@ -18,6 +18,7 @@ import {
   LambdaFunctionIncludedNestedStack,
 } from './include-nested-stacks/lambda-function/lambda-function-nested-stack';
 import { CategoryStackMapping } from './types/category-stack-mapping';
+import { Construct } from 'constructs';
 
 const { API_CATEGORY, AUTH_CATEGORY, FUNCTION_CATEGORY } = Constants;
 
@@ -43,7 +44,7 @@ export class AmplifyExportedBackend
    * @param props Initialization properties.
    */
   constructor(
-    scope: cdk.Construct,
+    scope: Construct,
     id: string,
     props: AmplifyExportedBackendProps,
   ) {
