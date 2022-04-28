@@ -1,8 +1,8 @@
 {
-  "name": "@artyom-melnikov/amplify-cli-export-construct",
+  "name": "@aws-amplify/cdk-exported-backend",
   "repository": {
     "type": "git",
-    "url": "https://github.com/artyom-melnikov/amplify-cli-export-construct.git"
+    "url": "https://github.com/aws-amplify/amplify-cli-export-construct.git"
   },
   "scripts": {
     "clobber": "npx projen clobber",
@@ -30,9 +30,9 @@
     "projen": "npx projen"
   },
   "author": {
-    "name": "Artyom Melnikov (forked from Amazon Web Services)",
+    "name": "Amazon Web Services",
     "email": "amplify-cli@amazon.com",
-    "organization": false
+    "organization": true
   },
   "devDependencies": {
     "@aws-cdk/assert": "^2.15.0",
@@ -88,7 +88,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.0",
+  "version": "0.0.0",
   "jest": {
     "testPathIgnorePatterns": [
       "/node_modules/"
