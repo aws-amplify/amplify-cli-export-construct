@@ -1,8 +1,9 @@
 import * as path from 'path';
-import { Bucket, BucketAccessControl, IBucket } from '@aws-cdk/aws-s3';
-import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
-import { CfnInclude } from '@aws-cdk/cloudformation-include';
-import { Construct, Stack } from '@aws-cdk/core';
+import { Bucket, BucketAccessControl, IBucket } from 'aws-cdk-lib/aws-s3';
+import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
+import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
+import { Stack } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import * as fs from 'fs-extra';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as _ from 'lodash';

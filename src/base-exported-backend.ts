@@ -1,12 +1,10 @@
 import * as path from 'path';
-import { BucketDeployment } from '@aws-cdk/aws-s3-deployment';
-import { Construct, } from '@aws-cdk/core';
+import { BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
+import { Construct, } from 'constructs';
 import * as fs from 'fs-extra';
 import {
   CfnIncludeProps,
-} from '@aws-cdk/cloudformation-include';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import * as _ from 'lodash';
+} from 'aws-cdk-lib/cloudformation-include';
 import { Constants } from './constants';
 import { CategoryStackMapping } from './types/category-stack-mapping';
 import { ExportManifest } from './types/export-manifest';
@@ -43,8 +41,8 @@ export class BaseAmplifyExportedBackend extends Construct {
 
     this.env = amplifyEnvironment;
     this.exportPath = this.validatePath(exportPath);
-    
-    
+
+
     const exportBackendManifest = this.getExportedDataFromFile<ExportManifest>(
       AMPLIFY_EXPORT_MANIFEST_FILE,
     );
@@ -75,9 +73,9 @@ export class BaseAmplifyExportedBackend extends Construct {
 
     return resolvePath;
   }
-  
+
   protected transformTemplateFile(cfnIncludeProps: CfnIncludeProps, exportPath: string) : CfnIncludeProps {
-    
+
     if(!cfnIncludeProps.loadNestedStacks){
       return cfnIncludeProps;
     }
@@ -85,18 +83,18 @@ export class BaseAmplifyExportedBackend extends Construct {
     const newProps: CfnIncludeProps = {
       ...cfnIncludeProps,
       templateFile: path.join(exportPath, cfnIncludeProps.templateFile),
-      loadNestedStacks: cfnIncludeProps.loadNestedStacks ? 
+      loadNestedStacks: cfnIncludeProps.loadNestedStacks ?
         Object.keys(cfnIncludeProps.loadNestedStacks).reduce((obj: any, key: string) => {
           if(cfnIncludeProps.loadNestedStacks &&  key in cfnIncludeProps.loadNestedStacks) {
             obj[key] = this.transformTemplateFile(cfnIncludeProps.loadNestedStacks[key], exportPath);
           }
           return obj;
-        }, {}) : 
+        }, {}) :
         cfnIncludeProps.loadNestedStacks
     };
-    
-    
-    
+
+
+
     return newProps;
   }
 
