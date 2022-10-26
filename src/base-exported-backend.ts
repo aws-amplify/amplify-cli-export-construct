@@ -93,8 +93,6 @@ export class BaseAmplifyExportedBackend extends Construct {
         cfnIncludeProps.loadNestedStacks
     };
 
-
-
     return newProps;
   }
 
