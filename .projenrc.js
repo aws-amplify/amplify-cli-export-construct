@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+  const fs = require('fs-extra');
 const { awscdk , javascript  } = require('projen');
 const { stringify } = require('yaml');
 
@@ -7,7 +7,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
   authorAddress: 'amplify-cli@amazon.com',
   packageName: '@aws-amplify/cdk-exported-backend',
-  cdkVersion: '1.127.0',
+  cdkVersion: '2.47.0',
   defaultReleaseBranch: 'release',
   name: 'exported-backend',
   bundledDeps: dependencies,
@@ -21,7 +21,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@types/node',
     '@types/uuid',
     'yaml',
-    '@aws-cdk/core',
   ],
   authorOrganization: true,
   repositoryUrl: 'https://github.com/aws-amplify/amplify-cli-export-construct.git',
@@ -41,22 +40,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
     mavenEndpoint: '${{ secrets.MAVEN_ENDPOINT }}'
   },
   jest: true,
-  cdkDependenciesAsDeps: true,
   minNodeVersion: '14.17.6',
   majorVersion: '0',
   docgen: true,
-  cdkDependencies: [
-    '@aws-cdk/aws-apigateway',
-    '@aws-cdk/aws-appsync',
-    '@aws-cdk/aws-cloudformation',
-    '@aws-cdk/aws-cognito',
-    '@aws-cdk/aws-iam',
-    '@aws-cdk/aws-lambda',
-    '@aws-cdk/aws-s3',
-    '@aws-cdk/aws-s3-assets',
-    '@aws-cdk/aws-s3-deployment',
-    '@aws-cdk/cloudformation-include',
-  ],
   gitignore: [
     'integ-test/amplify-e2e-core',
     'integ-test/amplify-headless-interface',
@@ -81,7 +67,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
   testdir: 'test',
   antitamper: false,
-  cdkAssert: true,
 });
 const unitTest = project.tasks.tryFind('test');
 unitTest.reset();
@@ -121,28 +106,28 @@ const integrationTestJob = {
       },
       {
         name: 'Install Amplify CLI',
-        run: 'npm i @aws-amplify/cli@beta\nnpm i -g @aws-amplify/cli@beta\nwhich amplify\namplify_path=$(which amplify)\necho "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV\necho ${{ env.AMPLIFY_PATH }}\n',
+        run: 'npm i @aws-amplify/cli@10.0.0\nnpm i -g @aws-amplify/cli@10.0.0\nwhich amplify\namplify_path=$(which amplify)\necho "AMPLIFY_PATH=$amplify_path" >> $GITHUB_ENV\necho ${{ env.AMPLIFY_PATH }}\n',
       },
       {
         name: 'Checkout',
         uses: 'actions/checkout@v2',
         with: {
           repository: 'aws-amplify/amplify-cli',
-          ref: 'beta',
+          ref: 'v10.0.0',
           path: 'amplify-cli',
         },
       },
       {
         name: 'Build Amplify E2E Core',
-        run: 'cd amplify-cli/packages/amplify-headless-interface\nyarn install\nyarn build\ncd ../amplify-e2e-core\nyarn install\nyarn build\ncd ~/\n',
+        run: 'cd amplify-cli\nyarn dev-build\ncd ~/\n',
       },
       {
-        name: 'Copy E2E Core',
-        run: 'cp -r amplify-cli/packages/amplify-headless-interface amplify-cli-export-construct/integ-test/amplify-headless-interface\ncp -r amplify-cli/packages/amplify-e2e-core amplify-cli-export-construct/integ-test/amplify-e2e-core\nls -l amplify-cli-export-construct/integ-test/\n',
+        name: 'Link E2E Core',
+        run: 'cd amplify-cli-export-construct/integ-test\nln -s ../../amplify-cli/packages/amplify-e2e-core amplify-e2e-core\nls -l .\ncd ~/\n',
       },
       {
         name: 'Run Test',
-        run: 'cd amplify-cli-export-construct\nnpm ci\ncd integ-test/amplify-e2e-core\nyarn install\ncd ../../\namplify -v\n./node_modules/jest/bin/jest.js --verbose --ci --collect-coverage\n',
+        run: 'cd amplify-cli-export-construct\nnpm ci\namplify -v\n./node_modules/jest/bin/jest.js --verbose --ci --collect-coverage\n',
         env: {
           AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}',
           AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}',

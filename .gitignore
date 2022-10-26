@@ -31,6 +31,7 @@ jspm_packages/
 .cache
 integ-test/amplify-e2e-core
 integ-test/amplify-headless-interface
+.idea
 !/.projenrc.js
 /test-reports/
 junit.xml
