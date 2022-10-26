@@ -1,8 +1,8 @@
 import { AmplifyExportedBackend, CategoryStackMapping } from '../src';
 import * as path from 'path';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
 import * as fs from 'fs-extra';
-import { expect as cdkExpect, countResources, haveResource, } from '@aws-cdk/assert';
+import { Template } from 'aws-cdk-lib/assertions';
 import { ResourceTypeConstants } from './resource-type-string-generator';
 
 // eslint-disable-next-line import/no-unresolved
@@ -25,7 +25,7 @@ describe('test construct', () => {
     expect(process.env.AMPLIFY_PATH).toBeDefined();
     expect(process.env.AWS_SECRET_ACCESS_KEY).toBeDefined();
     expect(process.env.AWS_SESSION_TOKEN).toBeDefined();
-    
+
     fs.ensureDirSync(projRoot);
     await initProjectWithAccessKey(projRoot, {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
@@ -43,7 +43,7 @@ describe('test construct', () => {
     await addAuthWithMaxOptions(projRoot, {});
     await addFunction(projRoot, { functionTemplate: 'Hello World' }, 'nodejs');
 
-   
+
     await addDEVHosting(projRoot);
     fs.ensureDirSync(exportProj);
     await exportBackend(projRoot, { exportPath: exportProj });
@@ -75,46 +75,46 @@ describe('test construct', () => {
   });
 
   test('root Stack is preset', () => {
-    cdkExpect(exportedBackendConstruct.rootStack).to(countResources(
-      ResourceTypeConstants.AWS.IAM.ROLE, 4));
-    cdkExpect(exportedBackendConstruct.rootStack).to(haveResource(ResourceTypeConstants.AWS.S3.BUCKET));
-    cdkExpect(exportedBackendConstruct.rootStack).to(haveResource(ResourceTypeConstants.AWS.LAMBDA.FUNCTION));
-    cdkExpect(exportedBackendConstruct.rootStack).to(haveResource('Custom::LambdaCallout'));
+    Template.fromStack(exportedBackendConstruct.rootStack).resourceCountIs(
+      ResourceTypeConstants.AWS.IAM.ROLE, 4);
+    Template.fromStack(exportedBackendConstruct.rootStack).resourceCountIs(ResourceTypeConstants.AWS.S3.BUCKET, 1);
+    Template.fromStack(exportedBackendConstruct.rootStack).resourceCountIs(ResourceTypeConstants.AWS.LAMBDA.FUNCTION, 2);
+    Template.fromStack(exportedBackendConstruct.rootStack).resourceCountIs('Custom::LambdaCallout', 1);
   })
 
   test('test rest api', () => {
     const service = 'API Gateway';
     categoryStackMapping.filter(r => r.service === service).forEach(mapping => {
       const apiStack = exportedBackendConstruct.apiRestNestedStack(mapping.resourceName);
-      cdkExpect(apiStack.stack).to(haveResource(ResourceTypeConstants.AWS.APIGATEWAY.RESTAPI));
-      cdkExpect(apiStack.stack).to(haveResource(ResourceTypeConstants.AWS.APIGATEWAY.DEPLOYMENT));
+      Template.fromStack(apiStack.stack).resourceCountIs(ResourceTypeConstants.AWS.APIGATEWAY.RESTAPI, 1);
+      Template.fromStack(apiStack.stack).resourceCountIs(ResourceTypeConstants.AWS.APIGATEWAY.DEPLOYMENT, 1);
     })
   });
 
   test('test graphql api', () => {
     const graphqlApiIncludedStack = exportedBackendConstruct.graphqlNestedStacks();
-    cdkExpect(graphqlApiIncludedStack.stack).to(haveResource(ResourceTypeConstants.AWS.APPSYNC.GRAPHQLAPI));
-    cdkExpect(graphqlApiIncludedStack.stack).to(haveResource(ResourceTypeConstants.AWS.APPSYNC.GRAPHQLSCHEMA));
+    Template.fromStack(graphqlApiIncludedStack.stack).resourceCountIs(ResourceTypeConstants.AWS.APPSYNC.GRAPHQLAPI, 1);
+    Template.fromStack(graphqlApiIncludedStack.stack).resourceCountIs(ResourceTypeConstants.AWS.APPSYNC.GRAPHQLSCHEMA, 1);
 
   });
 
   test('test lambda function', () => {
     exportedBackendConstruct.lambdaFunctionNestedStacks()
     .forEach(lambdaStack => {
-      cdkExpect(lambdaStack.stack).to(haveResource(ResourceTypeConstants.AWS.LAMBDA.FUNCTION));
-      cdkExpect(lambdaStack.stack).to(haveResource(ResourceTypeConstants.AWS.IAM.ROLE));
-      cdkExpect(lambdaStack.stack).to(haveResource(ResourceTypeConstants.AWS.IAM.POLICY));
+      Template.fromStack(lambdaStack.stack).resourceCountIs(ResourceTypeConstants.AWS.LAMBDA.FUNCTION, 1);
+      Template.fromStack(lambdaStack.stack).resourceCountIs(ResourceTypeConstants.AWS.IAM.ROLE, 1);
+      Template.fromStack(lambdaStack.stack).resourceCountIs(ResourceTypeConstants.AWS.IAM.POLICY, 1);
 
     })
-    
+
   });
 
   test('test auth', () => {
     const authStack = exportedBackendConstruct.authNestedStack();
-    cdkExpect(authStack.stack).to(haveResource(ResourceTypeConstants.AWS.COGNITO.USERPOOL));
-    cdkExpect(authStack.stack).to(haveResource(ResourceTypeConstants.AWS.COGNITO.IDENTITYPOOL));
-    cdkExpect(authStack.stack).to(haveResource(ResourceTypeConstants.AWS.COGNITO.USERPOOLCLIENT));
-    cdkExpect(authStack.stack).to(haveResource(ResourceTypeConstants.AWS.COGNITO.IDENTITYPOOLROLEATTACHMENT));
+    Template.fromStack(authStack.stack).resourceCountIs(ResourceTypeConstants.AWS.COGNITO.USERPOOL, 1);
+    Template.fromStack(authStack.stack).resourceCountIs(ResourceTypeConstants.AWS.COGNITO.IDENTITYPOOL, 1);
+    Template.fromStack(authStack.stack).resourceCountIs(ResourceTypeConstants.AWS.COGNITO.USERPOOLCLIENT, 2);
+    Template.fromStack(authStack.stack).resourceCountIs(ResourceTypeConstants.AWS.COGNITO.IDENTITYPOOLROLEATTACHMENT, 1);
   });
 
   test('test hosting', () => {
@@ -122,7 +122,7 @@ describe('test construct', () => {
     const category = 'hosting';
     exportedBackendConstruct.nestedStackByCategortService(category, service)
     .forEach(nestedStack => {
-      cdkExpect(nestedStack.stack).to(haveResource(ResourceTypeConstants.AWS.S3.BUCKET));
+      Template.fromStack(nestedStack.stack).resourceCountIs(ResourceTypeConstants.AWS.S3.BUCKET, 1);
     })
   });
 
