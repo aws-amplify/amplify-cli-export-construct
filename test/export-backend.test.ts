@@ -1,5 +1,5 @@
-import { CfnInclude } from '@aws-cdk/cloudformation-include';
-import { App } from '@aws-cdk/core';
+import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
+import { App } from 'aws-cdk-lib';
 import * as fs from 'fs-extra';
 import { AmplifyExportedBackend } from '../src';
 import { Constants } from '../src/constants';
@@ -40,7 +40,7 @@ jest.mock('../src/export-backend-asset-handler', () => ({
     setDependencies: jest.fn(),
   }),
 }));
-jest.mock('@aws-cdk/cloudformation-include');
+jest.mock('aws-cdk-lib/cloudformation-include');
 const cfnInclude_mock = CfnInclude as jest.Mocked<typeof CfnInclude>;
 
 JSON.parse = jest.fn().mockImplementation((val) => {

@@ -312,7 +312,7 @@
           "exec": "npm install"
         },
         {
-          "exec": "npm update @aws-cdk/assert @aws-cdk/core @types/fs-extra @types/jest @types/lodash.get @types/lodash.set @types/node @types/uuid jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak npm-check-updates standard-version ts-jest typescript yaml fs-extra lodash.get lodash.set uuid @aws-cdk/aws-apigateway @aws-cdk/aws-appsync @aws-cdk/aws-cloudformation @aws-cdk/aws-cognito @aws-cdk/aws-iam @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/cloudformation-include constructs @aws-cdk/aws-apigateway @aws-cdk/aws-appsync @aws-cdk/aws-cloudformation @aws-cdk/aws-cognito @aws-cdk/aws-iam @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/cloudformation-include fs-extra lodash.get lodash.set uuid"
+          "exec": "npm update aws-cdk-lib constructs @types/fs-extra @types/jest @types/lodash.get @types/lodash.set @types/node @types/uuid jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak npm-check-updates standard-version ts-jest typescript yaml fs-extra lodash.get lodash.set uuid fs-extra lodash.get lodash.set uuid"
         },
         {
           "exec": "npx projen"
