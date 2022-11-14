@@ -178,6 +178,24 @@ Include runtime versioning information in this Stack.
 
 ---
 
+##### `crossRegionReferences`<sup>Optional</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.crossRegionReferences"></a>
+
+```typescript
+public readonly crossRegionReferences: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Enable this flag to allow native cross region stack references.
+
+Enabling this will create a CloudFormation custom resource
+in both the producing stack and consuming stack in order to perform the export/import
+
+This feature is currently experimental
+
+---
+
 ##### `description`<sup>Optional</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.description"></a>
 
 ```typescript
