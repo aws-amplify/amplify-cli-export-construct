@@ -39,8 +39,6 @@
     "constructs": "10.1.139",
     "@types/fs-extra": "^8.1.2",
     "@types/jest": "^27.5.2",
-    "@types/lodash.get": "^4.4.7",
-    "@types/lodash.set": "^4.3.7",
     "@types/node": "^14.18.21",
     "@types/uuid": "^8.3.4",
     "jest": "^27.5.1",
