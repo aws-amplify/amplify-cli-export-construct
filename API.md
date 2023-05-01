@@ -178,6 +178,24 @@ Include runtime versioning information in this Stack.
 
 ---
 
+##### `crossRegionReferences`<sup>Optional</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.crossRegionReferences"></a>
+
+```typescript
+public readonly crossRegionReferences: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Enable this flag to allow native cross region stack references.
+
+Enabling this will create a CloudFormation custom resource
+in both the producing stack and consuming stack in order to perform the export/import
+
+This feature is currently experimental
+
+---
+
 ##### `description`<sup>Optional</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.description"></a>
 
 ```typescript
@@ -224,6 +242,19 @@ environment's AWS partition, and other such enhancements.
 
 ---
 
+##### `permissionsBoundary`<sup>Optional</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.permissionsBoundary"></a>
+
+```typescript
+public readonly permissionsBoundary: PermissionsBoundary;
+```
+
+- *Type:* [`aws-cdk-lib.PermissionsBoundary`](#aws-cdk-lib.PermissionsBoundary)
+- *Default:* no permissions boundary is applied
+
+Options for applying a permissions boundary to all IAM Roles and Users created within this Stage.
+
+---
+
 ##### `stackName`<sup>Optional</sup> <a name="@aws-amplify/cdk-exported-backend.AmplifyExportedBackendProps.property.stackName"></a>
 
 ```typescript
@@ -244,10 +275,19 @@ public readonly synthesizer: IStackSynthesizer;
 ```
 
 - *Type:* [`aws-cdk-lib.IStackSynthesizer`](#aws-cdk-lib.IStackSynthesizer)
-- *Default:* `DefaultStackSynthesizer` if the `@aws-cdk/core:newStyleStackSynthesis` feature flag
-is set, `LegacyStackSynthesizer` otherwise.
+- *Default:* The synthesizer specified on `App`, or `DefaultStackSynthesizer` otherwise.
 
 Synthesis method to use while deploying this stack.
+
+The Stack Synthesizer controls aspects of synthesis and deployment,
+like how assets are referenced and what IAM roles to use. For more
+information, see the README of the main CDK package.
+
+If not specified, the `defaultStackSynthesizer` from `App` will be used.
+If that is not specified, `DefaultStackSynthesizer` is used if
+`@aws-cdk/core:newStyleStackSynthesis` is set to `true` or the CDK major
+version is v2. In CDK v1 `LegacyStackSynthesizer` is the default if no
+other synthesizer is specified.
 
 ---
 
