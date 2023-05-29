@@ -13,6 +13,7 @@ export class APIRestIncludedStack
   /**
    * Gets the RestApi of the API stack
    * @returns {CfnRestApi}
+   * @throws {CfnResourceNotFoundError} if not found
    */
   restAPI(): CfnRestApi {
     return this.getResourceConstruct<CfnRestApi>(this.resourceName);
@@ -20,9 +21,10 @@ export class APIRestIncludedStack
 
 
   /**
-     * Gets the Deployment of the Rest API
-     * @returns {CfnDeployment}
-     */
+   * Gets the Deployment of the Rest API
+   * @returns {CfnDeployment}
+   * @throws {CfnResourceNotFoundError} if not found
+   */
   apiDeployment(): CfnDeployment {
     return this.getResourceConstruct<CfnDeployment>(
       `DeploymentAPIGW${this.resourceName}`,
