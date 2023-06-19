@@ -35,7 +35,7 @@
     "organization": true
   },
   "devDependencies": {
-    "aws-cdk-lib": "2.77.0",
+    "aws-cdk-lib": "2.80.0",
     "constructs": "10.1.139",
     "@types/fs-extra": "^8.1.2",
     "@types/jest": "^27.5.2",
@@ -57,11 +57,11 @@
     "yaml": "^2.2.2"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.77.0",
+    "aws-cdk-lib": "^2.80.0",
     "constructs": "^10.1.139"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.77.0",
+    "aws-cdk-lib": "^2.80.0",
     "constructs": "^10.1.139",
     "fs-extra": "10.1.0",
     "lodash.get": "^4.4.2",
