@@ -5,8 +5,6 @@ import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
 import { Stack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as fs from 'fs-extra';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import * as _ from 'lodash';
 import { v4 } from 'uuid';
 import { Constants } from '../constants';
 import {
@@ -66,9 +64,7 @@ export class AmplifyExportAssetHandler extends Construct {
   }
 
   private referenceDeploymentBucket(): IBucket {
-    const deploymentBucketName = _.get(this.exportManifest.props.parameters, [
-      PARAMETERS_DEPLOYMENT_BUCKET_NAME,
-    ]);
+    const deploymentBucketName = this.exportManifest.props.parameters?.[PARAMETERS_DEPLOYMENT_BUCKET_NAME]
 
     if (!deploymentBucketName) {
       throw new Error('deployment bucket not specified');
@@ -328,11 +324,8 @@ export class AmplifyExportAssetHandler extends Construct {
   private uploadAuthTriggerFiles(resourceName: string): undefined {
     const logicalId = `${AUTH_CATEGORY.NAME}${resourceName}`;
     const nestedStacks = this.exportManifest.props.loadNestedStacks;
-    const verificationBucketName = _.get(nestedStacks, [
-      logicalId,
-      'parameters',
-      PARAMTERS_AUTH_VERIFICATION_BUCKET_NAME,
-    ]);
+    const verificationBucketName = nestedStacks?.[logicalId]?.parameters?.[PARAMTERS_AUTH_VERIFICATION_BUCKET_NAME]
+    
     if (verificationBucketName) {
       const verificationWithEnv = this.env
         ? `${verificationBucketName}-${this.env}`
