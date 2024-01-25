@@ -2,7 +2,7 @@
 const { awscdk , javascript  } = require('projen');
 const { stringify } = require('yaml');
 
-const dependencies = ['fs-extra@10.0.0', 'lodash.get', 'lodash.set', 'uuid'];
+const dependencies = ['fs-extra@10.0.0', 'lodash', 'uuid'];
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
   authorAddress: 'amplify-cli@amazon.com',
@@ -16,8 +16,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   devDeps: [
     '@types/fs-extra@^8.1.1',
     '@types/jest',
-    '@types/lodash.get',
-    '@types/lodash.set',
     '@types/node',
     '@types/uuid',
     'yaml',

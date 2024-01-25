@@ -20,14 +20,6 @@
       "type": "build"
     },
     {
-      "name": "@types/lodash.get",
-      "type": "build"
-    },
-    {
-      "name": "@types/lodash.set",
-      "type": "build"
-    },
-    {
       "name": "@types/node",
       "version": "^14.17.6",
       "type": "build"
@@ -93,11 +85,7 @@
       "type": "bundled"
     },
     {
-      "name": "lodash.get",
-      "type": "bundled"
-    },
-    {
-      "name": "lodash.set",
+      "name": "lodash",
       "type": "bundled"
     },
     {
@@ -127,14 +115,6 @@
     {
       "name": "fs-extra",
       "version": "10.0.0",
-      "type": "runtime"
-    },
-    {
-      "name": "lodash.get",
-      "type": "runtime"
-    },
-    {
-      "name": "lodash.set",
       "type": "runtime"
     },
     {
