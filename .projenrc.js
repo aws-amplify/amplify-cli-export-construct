@@ -16,6 +16,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   devDeps: [
     '@types/fs-extra@^8.1.1',
     '@types/jest',
+    '@types/lodash',
     '@types/node',
     '@types/uuid',
     'yaml',

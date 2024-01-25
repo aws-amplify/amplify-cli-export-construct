@@ -59,6 +59,7 @@
     "constructs": "^10.1.139"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.202",
     "aws-cdk-lib": "^2.80.0",
     "constructs": "^10.1.139",
     "fs-extra": "10.1.0",
