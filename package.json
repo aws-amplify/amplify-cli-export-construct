@@ -37,6 +37,7 @@
   "devDependencies": {
     "@types/fs-extra": "^8.1.2",
     "@types/jest": "^27.5.2",
+    "@types/lodash": "^4.14.202",
     "@types/node": "^14.18.21",
     "@types/uuid": "^8.3.4",
     "aws-cdk-lib": "2.80.0",
@@ -59,7 +60,6 @@
     "constructs": "^10.1.139"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.202",
     "aws-cdk-lib": "^2.80.0",
     "constructs": "^10.1.139",
     "fs-extra": "10.1.0",
