@@ -24,10 +24,6 @@
       "type": "build"
     },
     {
-      "name": "@types/lodash.set",
-      "type": "build"
-    },
-    {
       "name": "@types/node",
       "version": "^14.17.6",
       "type": "build"
@@ -97,10 +93,6 @@
       "type": "bundled"
     },
     {
-      "name": "lodash.set",
-      "type": "bundled"
-    },
-    {
       "name": "uuid",
       "type": "bundled"
     },
@@ -131,10 +123,6 @@
     },
     {
       "name": "lodash.get",
-      "type": "runtime"
-    },
-    {
-      "name": "lodash.set",
       "type": "runtime"
     },
     {

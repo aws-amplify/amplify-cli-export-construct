@@ -312,7 +312,7 @@
           "exec": "npm install"
         },
         {
-          "exec": "npm update aws-cdk-lib constructs @types/fs-extra @types/jest @types/lodash.get @types/lodash.set @types/node @types/uuid jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak npm-check-updates standard-version ts-jest typescript yaml fs-extra lodash.get lodash.set uuid fs-extra lodash.get lodash.set uuid"
+          "exec": "npm update aws-cdk-lib constructs @types/fs-extra @types/jest @types/lodash.get @types/node @types/uuid jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak npm-check-updates standard-version ts-jest typescript yaml fs-extra lodash.get uuid fs-extra lodash.get uuid"
         },
         {
           "exec": "npx projen"
