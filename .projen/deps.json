@@ -20,11 +20,7 @@
       "type": "build"
     },
     {
-      "name": "@types/lodash.get",
-      "type": "build"
-    },
-    {
-      "name": "@types/lodash.set",
+      "name": "@types/lodash",
       "type": "build"
     },
     {
@@ -93,11 +89,7 @@
       "type": "bundled"
     },
     {
-      "name": "lodash.get",
-      "type": "bundled"
-    },
-    {
-      "name": "lodash.set",
+      "name": "lodash",
       "type": "bundled"
     },
     {
@@ -130,11 +122,7 @@
       "type": "runtime"
     },
     {
-      "name": "lodash.get",
-      "type": "runtime"
-    },
-    {
-      "name": "lodash.set",
+      "name": "lodash",
       "type": "runtime"
     },
     {
