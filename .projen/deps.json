@@ -122,6 +122,10 @@
       "type": "runtime"
     },
     {
+      "name": "lodash",
+      "type": "runtime"
+    },
+    {
       "name": "uuid",
       "type": "runtime"
     }
