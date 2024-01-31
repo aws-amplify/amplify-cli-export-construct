@@ -4,6 +4,7 @@ import * as fs from 'fs-extra';
 import { AmplifyExportedBackend } from '../src';
 import { Constants } from '../src/constants';
 import { manifest_test, stack_mapping_test } from './test-constants';
+import { AWS_CUSTOM_RESOURCE_LATEST_SDK_DEFAULT } from 'aws-cdk-lib/cx-api';
 const {
   AMPLIFY_EXPORT_MANIFEST_FILE,
   AMPLIFY_CATEGORY_MAPPING_FILE,
@@ -34,9 +35,11 @@ fs_mock.statSync.mockReturnValue({
   isDirectory: jest.fn().mockReturnValue(true),
 } as unknown as fs.Stats)
 
+const mockAssetReturn = jest.fn();
+
 jest.mock('../src/export-backend-asset-handler', () => ({
   AmplifyExportAssetHandler: jest.fn().mockReturnValue({
-    createAssetsAndUpdateParameters: jest.fn().mockReturnValue({ props: {} }),
+    createAssetsAndUpdateParameters: () => mockAssetReturn(),
     setDependencies: jest.fn(),
   }),
 }));
@@ -58,8 +61,29 @@ JSON.parse = jest.fn().mockImplementation((val) => {
   return {};
 });
 
+cfnInclude_mock.prototype.getResource = jest.fn().mockImplementation((name: string) => {
+  if (name === 'AuthRoleName') {
+    return {
+      roleName: manifest_test.props.parameters.AuthRoleName
+    }
+  }
+  if (name === 'DeploymentBucketName') {
+    return {
+      bucketName: manifest_test.props.parameters.DeploymentBucketName
+    }
+  }
+
+  if (name === 'UnauthRoleName') {
+    return {
+      roleName: manifest_test.props.parameters.UnauthRoleName
+    }
+  }
+  return {}
+});
+
 describe('test export backend', () => {
   test('test export backend', () => {
+    mockAssetReturn.mockReturnValue({props: {}})
     const app = new App();
     const amplifyBackend = new AmplifyExportedBackend(app, 'test-construct', {
       path: 'dummy-path',
@@ -90,11 +114,45 @@ describe('test export backend', () => {
     expect(lambdaStack.length).toBe(1);
     expect(amplifyBackend.cfnInclude.getNestedStack).toBeCalledWith('functionamplifyexportest13c53bd0');
 
-    try {
+    // testing an exception so wrap in a function per https://jestjs.io/docs/expect#tothrowerror
+    function getMissingResource() {
       amplifyBackend.apiRestNestedStack('noresource');
-    } catch (ex) {
-      expect(ex).toBeDefined();
     }
+    expect(getMissingResource)
+        .toThrowError("service 'API Gateway' of category 'api' not found");
   });
 
+  test('Amplify Backend Created', () => {
+    mockAssetReturn.mockReturnValue(manifest_test);
+    const appId = 'testAppId';
+    const env = "testenv";
+    const app = new App({context: {[AWS_CUSTOM_RESOURCE_LATEST_SDK_DEFAULT]: false}});
+    const backend = new AmplifyExportedBackend(app, "testExport", {
+      amplifyEnvironment: env,
+      amplifyAppId: appId,
+      path: 'dummy-path',
+    });
+
+    expect(backend).toBeDefined();
+    expect(cfnInclude_mock).toBeDefined();
+    expect(backend.rootStack).toBeDefined();
+    expect(backend.rootStack.stackName).toContain('testenv');
+    const customBackend = backend.rootStack.node.tryFindChild('CreateBackendEnvironment');
+    expect(customBackend).toBeDefined();
+  });
+
+  test('Environment name must conform', () => {
+    const app = new App();
+    function makeBadlyNamedBackend() {
+      new AmplifyExportedBackend(app, 'test-construct', {
+        path: 'dummy-path',
+        amplifyEnvironment: 'testEnv',
+      })
+    }
+
+    expect(makeBadlyNamedBackend)
+        .toThrowError(
+            "param 'amplifyEnvironment' must be between 2 and 10 characters, and lowercase only. Got 'testEnv'."
+        );
+  })
 });
