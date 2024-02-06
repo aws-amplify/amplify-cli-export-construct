@@ -32,8 +32,8 @@ jobs:
         run: npx projen upgrade
       - name: Build
         id: build
-        run: npx projen build && echo "::set-output name=conclusion::success" || echo
-          "::set-output name=conclusion::failure"
+        run: npx projen build && echo "conclusion=success" || echo >> "$GITHUB_OUTPUT"
+          "conclusion=failure" >> "$GITHUB_OUTPUT"
       - name: Create Patch
         run: |-
           git add .
