@@ -239,6 +239,7 @@ export class AmplifyExportAssetHandler extends Construct {
         sources: [Source.asset(filePath)],
         destinationKeyPrefix: AMPLIFY_BUILDS,
         prune: false,
+        memoryLimit: 512,
       },
     );
     const stacks = this.exportManifest.props.loadNestedStacks;
