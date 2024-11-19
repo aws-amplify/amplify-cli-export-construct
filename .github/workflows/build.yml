@@ -37,19 +37,22 @@ jobs:
       - if: steps.git_diff.outputs.has_changes
         name: Commit and push changes (if changed)
         run: 'git add . && git commit -m "chore: self mutation" && git push origin
-          HEAD:${{ github.event.pull_request.head.ref }}'
+          HEAD:"$PR-HEAD-REF"'
+        env: 
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
       - if: steps.git_diff.outputs.has_changes
         name: Update status check (if changed)
-        run: gh api -X POST /repos/${{ github.event.pull_request.head.repo.full_name
-          }}/check-runs -F name="build" -F head_sha="$(git rev-parse HEAD)" -F
+        run: gh api -X POST /repos/${PR_REPO_FULL_NAME}/check-runs 
+        -F name="build" -F head_sha="$(git rev-parse HEAD)" -F
           status="completed" -F conclusion="success"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_REPO_FULL_NAME: ${{ github.event.pull_request.head.repo.full_name}}
       - if: steps.git_diff.outputs.has_changes
         name: Cancel workflow (if changed)
-        run: gh api -X POST /repos/${{ github.event.pull_request.head.repo.full_name
-          }}/actions/runs/${{ github.run_id }}/cancel
+        run: gh api -X POST /repos/${PR_REPO_FULL_NAME}/actions/runs/${{ github.run_id }}/cancel
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_REPO_FULL_NAME: ${{ github.event.pull_request.head.repo.full_name}}
     container:
       image: jsii/superchain:1-buster-slim-node14
