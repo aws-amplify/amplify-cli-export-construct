@@ -32,8 +32,7 @@ Add to your CDK app:
 import { AmplifyExportedBackend }  from '@aws-amplify/cdk-exported-backend';
 ...
 const amplifyExport = new AmplifyExportedBackend(app, 'AmplifyExportedBackend', {
-  path: './amplify-export-myAmplifyApp',
-  amplifyEnvironment: 'dev', 
+  path: './amplify-export-myAmplifyApp'
 });
 
 
@@ -45,10 +44,12 @@ const amplifyExport = new AmplifyExportedBackend(app, 'AmplifyExportedBackend', 
 
 The construct props extend [stack props](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.StackProps.html) and can be used to override the root stack properties.
 
-|Name	|Type	|Description	|Required	|Default	|
-|---	|---	|---	|---	|---	|
-|path	|String	|You can use the absolute or the relative path to the location of the folder. When using relative paths it's important to note that the path is relative to the root of your CDK application	|Yes	|undefined	|
-|stage	|String	|This works similar to Amplify CLI's environment names. The construct makes modification to be able to integrate into the CDK app.	|Yes	| undefined	|
+| Name	              | Type   | Description                                                                                                                                                                                  | Required | Default   |
+|--------------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|-----------|
+| path               | String | You can use the absolute or the relative path to the location of the folder. When using relative paths it's important to note that the path is relative to the root of your CDK application. | Yes      | undefined |
+| amplifyEnvironment | String | The construct emulates Amplify CLI's environment name convention to integrate Amplify exported resources into the CDK app.                                                                   | No       | dev       |
+| amplifyAppId       | String | Create an Amplify backend environment for the specified Amplify App Id. Do not provide an amplifyAppId if the environment was already added by the Amplify CLI.                              | No       | undefined |
+
 
 
 Deploy this to your account
