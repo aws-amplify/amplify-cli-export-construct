@@ -9,6 +9,10 @@ export interface ProviderCredential {
 }
 
 export class AuthIncludedNestedStack extends BaseIncludedStack {
+  /**
+   * attaches third party auth provider credentials to identity pool
+   * @throws {CfnResourceNotFoundError} if
+   */
   hostedUiProviderCredentials(credentials: ProviderCredential[]): void {
     const hostedUICustomResourceInputs = this.getResourceConstruct<
     CfnCustomResource
@@ -31,6 +35,7 @@ export class AuthIncludedNestedStack extends BaseIncludedStack {
   }
   /**
    * @returns {CfnIdentityPool} of the auth stack
+   * @throws {CfnResourceNotFoundError} if not found
    */
   userPool(): CfnUserPool {
     return this.getResourceConstruct<CfnUserPool>('UserPool');
@@ -38,7 +43,7 @@ export class AuthIncludedNestedStack extends BaseIncludedStack {
 
   /**
    * @returns Cognito UserPool {CfnUserPool} of the auth stack
-   * @throws {}
+   * @throws {CfnResourceNotFoundError} if not found
    */
   identityPool(): CfnIdentityPool {
     return this.getResourceConstruct<CfnIdentityPool>('IdentityPool');

@@ -49,7 +49,7 @@ export class AmplifyExportAssetHandler extends Construct {
   private categoryStackWithDeployment: CategoryStackMappingWithDeployment[];
   private exportPath: string;
   private rootStack: Stack;
-  private env?: string;
+  private env: string;
 
   private auxiliaryDeployment: BucketDeployment | undefined;
 

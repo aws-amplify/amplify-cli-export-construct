@@ -14,9 +14,18 @@ const {
   AMPLIFY_EXPORT_TAG_FILE,
   AMPLIFY_CATEGORY_MAPPING_FILE,
 } = Constants;
+
+// conform to Amplify conventions: https://github.com/aws-amplify/amplify-cli/blob/v12.0.3/packages/amplify-cli/src/init-steps/s0-analyzeProject.ts#L206-L208
+const isEnvNameValid = (inputEnvName: string): boolean => /^[a-z]{2,10}$/.test(inputEnvName);
+
+function validateEnv(env: string = 'dev') {
+  if(!isEnvNameValid(env)) throw new Error(`param 'amplifyEnvironment' must be between 2 and 10 characters, and lowercase only. Got '${env}'.`);
+  return env;
+}
+
 class AmplifyCategoryNotFoundError extends Error {
   constructor(category: string, service?: string) {
-    super(`The category: ${category}  ${service ? 'of service: ' + service: '' } not found.`);
+    super(`${service ? `service '${service}' of category '${category}'` : `category '${category}'`} not found`);
   }
 }
 
@@ -30,16 +39,19 @@ export class BaseAmplifyExportedBackend extends Construct {
   protected exportBackendManifest: ExportManifest;
   protected exportTags: ExportTag[];
   protected auxiliaryDeployment?: BucketDeployment;
-  protected env?: string
+  protected env: string;
+  protected appId?: string;
   constructor(
     scope: Construct,
     id: string,
     exportPath: string,
-    amplifyEnvironment: string,
+    amplifyEnvironment?: string,
+    amplifyAppId?: string
   ) {
     super(scope, id);
 
-    this.env = amplifyEnvironment;
+    this.env = validateEnv(amplifyEnvironment);
+    this.appId = amplifyAppId;
     this.exportPath = this.validatePath(exportPath);
 
 
@@ -140,11 +152,7 @@ export class BaseAmplifyExportedBackend extends Construct {
 
   private modifyEnv(nameWithEnv: string): string {
     let splitValues = nameWithEnv.split('-');
-    if (this.env) {
-      splitValues[2] = this.env;
-    } else {
-      splitValues.splice(2, 1);
-    }
+    splitValues[2] = this.env;
     return splitValues.join('-');
   }
 

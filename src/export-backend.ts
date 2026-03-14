@@ -17,6 +17,10 @@ import {
   LambdaFunctionIncludedNestedStack,
 } from './include-nested-stacks/lambda-function/lambda-function-nested-stack';
 import { CategoryStackMapping } from './types/category-stack-mapping';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from "aws-cdk-lib/custom-resources";
+import { CfnParameter } from 'aws-cdk-lib';
+import { CfnRole } from 'aws-cdk-lib/aws-iam';
+import { CfnBucket } from 'aws-cdk-lib/aws-s3';
 
 const { API_CATEGORY, AUTH_CATEGORY, FUNCTION_CATEGORY } = Constants;
 
@@ -46,7 +50,7 @@ export class AmplifyExportedBackend
     id: string,
     props: AmplifyExportedBackendProps,
   ) {
-    super(scope, id, props.path, props.amplifyEnvironment);
+    super(scope, id, props.path, props.amplifyEnvironment, props.amplifyAppId);
 
     this.rootStack = new cdk.Stack(scope, `${id}-amplify-backend-stack`, {
       ...props,
@@ -59,7 +63,7 @@ export class AmplifyExportedBackend
       {
         backendPath: props.path,
         categoryStackMapping: this.categoryStackMappings,
-        env: props.amplifyEnvironment ? props.amplifyEnvironment : 'dev',
+        env: this.env,
         exportManifest: this.exportBackendManifest,
       },
     );
@@ -76,11 +80,57 @@ export class AmplifyExportedBackend
 
     amplifyExportHandler.setDependencies(include);
 
-    this.applyTags(this.rootStack, props.amplifyEnvironment);
+    // used to emulate the input parameters that the Amplify CLI uses
+    const deploymentBucket = this.cfnInclude.getResource('DeploymentBucket') as CfnBucket;
+    const authRole = this.cfnInclude.getResource('AuthRole') as CfnRole;
+    const unauthRole = this.cfnInclude.getResource('UnauthRole') as CfnRole;
+    new CfnParameter(this.rootStack, 'AuthRoleName', {
+      type: 'String',
+      default: authRole.roleName
+    });
+    new CfnParameter(this.rootStack, 'DeploymentBucketName', {
+      type: 'String',
+      default: deploymentBucket.bucketName
+    });
+    new CfnParameter(this.rootStack, 'UnauthRoleName', {
+      type: 'String',
+      default: unauthRole.roleName
+    });
 
+    // just like in amplify env add, we add the backend to the amplify application
+    // and then deploy the CFN. This also ensures the amplify env only deletes when
+    // the CFN is gone too.
+    if(this.appId) {
+      new AwsCustomResource(this.rootStack, 'CreateBackendEnvironment', {
+        onCreate: {
+          service: 'Amplify',
+          action: 'createBackendEnvironment',
+          parameters: {
+            appId: this.appId,
+            environmentName: this.env,
+            stackName: this.rootStack.stackName,
+            deploymentArtifacts: deploymentBucket.bucketName,
+          },
+          physicalResourceId: PhysicalResourceId.of(`${this.appId}-${this.env}-backendEnvironment`)
+        },
+        onDelete: {
+          service: 'Amplify',
+          action: 'deleteBackendEnvironment',
+          parameters: {
+            appId: this.appId,
+            environmentName: this.env
+          }
+        },
+        policy: AwsCustomResourcePolicy.fromSdkCalls({
+          resources: AwsCustomResourcePolicy.ANY_RESOURCE,
+        }),
+      });
+    }
+
+    this.applyTags(this.rootStack, this.env);
   }
 
-  private applyTags(rootStack: cdk.Stack, env: string = 'dev') {
+  private applyTags(rootStack: cdk.Stack, env: string) {
     this.exportTags.forEach((tag) => {
       rootStack.tags.setTag(tag.key, tag.value.replace('{project-env}', env));
     });
@@ -88,7 +138,7 @@ export class AmplifyExportedBackend
 
   /**
    * Method to get the auth stack
-   * @returns the nested stack of type {IAuthIncludeNestedStack}
+   * @returns the nested stack of type {@link AuthIncludedNestedStack}
    * @throws {AmplifyCategoryNotFoundError} if the auth stack doesn't exist
    * @method
    * @function
@@ -104,8 +154,7 @@ export class AmplifyExportedBackend
 
   /**
    * Use this to get the api graphql stack from the backend
-   * @returns the nested stack of type {IAPIGraphQLIncludeNestedStack}
-   * @
+   * @returns the nested stack of type {@link APIGraphQLIncludedNestedStack}
    * @throws {AmplifyCategoryNotFoundError} if the API graphql stack doesn't exist
    */
   graphqlNestedStacks(): APIGraphQLIncludedNestedStack {
@@ -120,7 +169,7 @@ export class AmplifyExportedBackend
 
   /**
    * Use this to get all the lambda functions from the backend
-   * @returns {ILambdaFunctionIncludedNestedStack[]}
+   * @returns {LambdaFunctionIncludedNestedStack[]}
    * @throws {AmplifyCategoryNotFoundError} if the no Lambda Function stacks are found
    */
   lambdaFunctionNestedStacks(): LambdaFunctionIncludedNestedStack[] {
@@ -134,7 +183,7 @@ export class AmplifyExportedBackend
 
   /**
    * Use this to get a specific lambda function from the backend
-   * @returns {ILambdaFunctionIncludedNestedStack}
+   * @returns {LambdaFunctionIncludedNestedStack}
    * @param functionName the function name to get from the nested stack
    * @throws {AmplifyCategoryNotFoundError} if the lambda function stack doesn't exist
    */
@@ -172,7 +221,7 @@ export class AmplifyExportedBackend
   /**
    * Use this to get rest api stack from the backend
    * @param resourceName
-   * @return {IAPIRestIncludedStack} the nested of type Rest API
+   * @return {APIRestIncludedStack} the nested of type Rest API
    * @throws {AmplifyCategoryNotFoundError} if the API Rest stack doesn't exist
    */
   apiRestNestedStack(resourceName: string): APIRestIncludedStack {
