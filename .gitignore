@@ -53,3 +53,4 @@ tsconfig.json
 !/.github/workflows/release-beta.yml
 !/.github/workflows/upgrade-release.yml
 !/.github/workflows/upgrade-beta.yml
+.env
