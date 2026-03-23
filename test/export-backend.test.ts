@@ -70,25 +70,25 @@ describe('test export backend', () => {
     expect(amplifyBackend.rootStack).toBeDefined();
     expect(amplifyBackend.rootStack.stackName).toContain('prod');
 
-    expect(cfnInclude_mock).toBeCalledWith(amplifyBackend.rootStack, 'AmplifyCfnInclude', {});
+    expect(cfnInclude_mock).toHaveBeenCalledWith(amplifyBackend.rootStack, 'AmplifyCfnInclude', {});
     expect(amplifyBackend.cfnInclude).toBeDefined;
     amplifyBackend.cfnInclude.getNestedStack = jest.fn().mockReturnValue({});
     const graphqlStack = amplifyBackend.graphqlNestedStacks();
     expect(graphqlStack).toBeDefined();
-    expect(amplifyBackend.cfnInclude.getNestedStack).toBeCalledWith(
+    expect(amplifyBackend.cfnInclude.getNestedStack).toHaveBeenCalledWith(
       'apiamplifyexportest',
     );
 
     const authStack = amplifyBackend.authNestedStack();
     expect(authStack).toBeDefined();
-    expect(amplifyBackend.cfnInclude.getNestedStack).toBeCalledWith(
+    expect(amplifyBackend.cfnInclude.getNestedStack).toHaveBeenCalledWith(
       'authamplifyexportestd3062483',
     );
 
     const lambdaStack = amplifyBackend.lambdaFunctionNestedStacks();
     expect(lambdaStack).toBeDefined();
     expect(lambdaStack.length).toBe(1);
-    expect(amplifyBackend.cfnInclude.getNestedStack).toBeCalledWith('functionamplifyexportest13c53bd0');
+    expect(amplifyBackend.cfnInclude.getNestedStack).toHaveBeenCalledWith('functionamplifyexportest13c53bd0');
 
     try {
       amplifyBackend.apiRestNestedStack('noresource');

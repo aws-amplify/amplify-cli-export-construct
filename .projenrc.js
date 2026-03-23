@@ -15,7 +15,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   npmAccess: javascript.NpmAccess.PUBLIC,
   devDeps: [
     '@types/fs-extra@^8.1.1',
-    '@types/jest',
+    '@types/jest@^30.0.0',
     '@types/lodash.get',
     '@types/node',
     '@types/uuid',

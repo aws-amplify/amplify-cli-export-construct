@@ -30,11 +30,11 @@ describe('test asset handler', () => {
         },
       }),
     } as unknown as CfnInclude;
-    expect(BucketDeployment).toBeCalled();
-    expect(Source.asset).toBeCalled();
+    expect(BucketDeployment).toHaveBeenCalled();
+    expect(Source.asset).toHaveBeenCalled();
     amplifyExporthandler.setDependencies(mockInclude);
 
-    expect(addDependencyMock).toBeCalled();
+    expect(addDependencyMock).toHaveBeenCalled();
 
   });
 });
