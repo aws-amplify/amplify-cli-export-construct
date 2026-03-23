@@ -36,7 +36,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
     javaPackage: 'com.amplifyframework.cdk.exportedbackend',
     mavenGroupId: 'com.amplifyframework',
     mavenArtifactId: 'exported-backend',
-    mavenEndpoint: '${{ secrets.MAVEN_ENDPOINT }}'
   },
   jest: true,
   minNodeVersion: '14.17.6',
