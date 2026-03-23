@@ -27,6 +27,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: "11"
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
       - name: Install dependencies
         run: npm ci
       - name: build
@@ -55,5 +64,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_REPO_FULL_NAME: ${{ github.event.pull_request.head.repo.full_name}}
-    container:
-      image: jsii/superchain:1-bookworm-slim-node18
