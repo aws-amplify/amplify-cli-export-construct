@@ -6,7 +6,8 @@
     "inlineSourceMap": true,
     "inlineSources": true,
     "lib": [
-      "es2018"
+      "es2018",
+      "esnext.disposable"
     ],
     "module": "CommonJS",
     "noEmitOnError": false,
@@ -17,6 +18,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
