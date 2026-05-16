@@ -122,13 +122,16 @@
       ]
     ],
     "transform": {
-      "^.+\\.tsx?$": [
+      "^.+\\.[tj]sx?$": [
         "ts-jest",
         {
           "tsconfig": "tsconfig.jest.json"
         }
       ]
-    }
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!uuid)"
+    ]
   },
   "types": "lib/index.d.ts",
   "stability": "stable",

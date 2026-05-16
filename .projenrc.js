@@ -61,6 +61,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
       testPathIgnorePatterns: ['/node_modules/'],
       coveragePathIgnorePatterns: ['integ-test/', '/node_modules/'],
       watchPathIgnorePatterns: ['integ-test/'],
+      transformIgnorePatterns: ['/node_modules/(?!uuid)'],
     },
   },
   testdir: 'test',
