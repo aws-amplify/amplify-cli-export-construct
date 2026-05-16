@@ -65,7 +65,7 @@
     "constructs": "^10.5.0",
     "fs-extra": "10.1.0",
     "lodash.get": "^4.4.2",
-    "uuid": "^14.0.0"
+    "uuid": "^8.3.2"
   },
   "bundledDependencies": [
     "fs-extra",
@@ -122,16 +122,13 @@
       ]
     ],
     "transform": {
-      "^.+\\.[tj]sx?$": [
+      "^.+\\.tsx?$": [
         "ts-jest",
         {
           "tsconfig": "tsconfig.jest.json"
         }
       ]
-    },
-    "transformIgnorePatterns": [
-      "/node_modules/(?!uuid)"
-    ]
+    }
   },
   "types": "lib/index.d.ts",
   "stability": "stable",
